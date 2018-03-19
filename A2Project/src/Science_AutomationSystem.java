@@ -15,6 +15,9 @@ public class Science_AutomationSystem {
  
 String ChemicalFile = "datafiles/Chemical.dat";
 String EquipmentFile = "datafiles/Equipment.dat";
+String ItemsFile = "datafiles/Items.dat";
+
+HashFile itemsFile = new HashFile(ItemsFile, 100, new Items());
 
 HashFile ChemicalHash = new HashFile(ChemicalFile, 100, new Chemical()); // this needs to be seen to and resolved before further progress can be made!!
 HashFile EquipmentHash = new HashFile(EquipmentFile, 100, new Equipment());
@@ -28,10 +31,6 @@ HashFile EquipmentHash = new HashFile(EquipmentFile, 100, new Equipment());
       frame.setTitle("Welcome");
       frame.setSize(500, 500);
       
-      
-       
-	
-	  
    }
 
 
@@ -57,11 +56,11 @@ HashFile EquipmentHash = new HashFile(EquipmentFile, 100, new Equipment());
 	   
   
 	public void addItem() {
-		// TODO Auto-generated method stub
-		 PC_Table EquiptmentTable = new PC_Table("Equiptment", 100, "Product Code, Description, Quantity, Cupboard, Room", "Confirm" );
-		   PC_Table ChemicalsTable = new PC_Table("Chemicals", 100, "Reference Code, Reactant, Quantity, Cupboard, Warning", "Confirm" );
-			
 		
+		Items items = new Items(science_AutomationStyle);
+		items.input();
+		itemsFile.store(items);
+
 	}
 	 
 	   
