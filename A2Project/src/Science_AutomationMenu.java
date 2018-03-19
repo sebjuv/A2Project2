@@ -44,7 +44,7 @@ public class Science_AutomationMenu {
       do {
          switch(itemMenu.choice()){
             case 1 : itemMenu.setVisible(false);
-                     science_AutomationSystem.addItem();
+                     science_AutomationSystem.addItem(); // Make a menu for the chemical and the equipment menus
                      break;
             case 2 : itemMenu.setVisible(false);
                      science_AutomationSystem.editItem();
@@ -61,8 +61,17 @@ public class Science_AutomationMenu {
          } //  end of switch
       } while(!finished);
    } 
-
-
+/* this is where the menus for the add item. Essentiall, make the add item a new menu and make that menu go to this.
+   private void addItem(){
+	   boolean finished = false;
+	   do{
+		   switch(addItem.choice()){
+		   case 1 : addItem.setVisible(false);
+		   
+		   }
+	   }
+   }
+*/
    private void adminRun(){
       boolean finished = false;
       do {

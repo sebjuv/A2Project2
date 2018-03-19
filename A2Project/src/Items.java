@@ -27,7 +27,7 @@ import java.io.*;
 
    public int            itemID = 000000000;     /** Foreign Key */
    public String         itemName = "";     /** */
-   public float          itempH = (float) 0.0;     /** */
+   public float          item_pH = (float) 0.0;     /** */
    public boolean        itemExplosive = false;     /** */
    public boolean        itemFlammable = false;     /** */
    public boolean        itemOxidising = false;     /** */
@@ -64,7 +64,7 @@ import java.io.*;
 
       dialog.setField(1, itemID);
       dialog.setField(2, itemName);
-      dialog.setField(3, Vdu.format(itempH, 2));
+      dialog.setField(3, Vdu.format(item_pH, 2));
       dialog.setField(4, itemExplosive);
       dialog.setField(5, itemFlammable);
       dialog.setField(6, itemOxidising);
@@ -76,7 +76,7 @@ import java.io.*;
          finished = dialog.choice()==2;
          itemID              = dialog.getFieldInt(1);
          itemName            = dialog.getField(2);
-         itempH              = (float) dialog.getFieldDouble(3);
+         item_pH              = (float) dialog.getFieldDouble(3);
          itemExplosive       = dialog.getFieldBoolean(4);
          itemFlammable       = dialog.getFieldBoolean(5);
          itemOxidising       = dialog.getFieldBoolean(6);
@@ -114,7 +114,7 @@ import java.io.*;
       dialog.setEditable(12, false);
       dialog.setField(1, itemID);
       dialog.setField(2, itemName);
-      dialog.setField(3, Vdu.format(itempH, 2));
+      dialog.setField(3, Vdu.format(item_pH, 2));
       dialog.setField(4, itemExplosive);
       dialog.setField(5, itemFlammable);
       dialog.setField(6, itemOxidising);
@@ -139,7 +139,7 @@ import java.io.*;
 
       dialog.setField(1, itemID);
       dialog.setField(2, itemName);
-      dialog.setField(3, Vdu.format(itempH, 2));
+      dialog.setField(3, Vdu.format(item_pH, 2));
       dialog.setField(4, itemExplosive);
       dialog.setField(5, itemFlammable);
       dialog.setField(6, itemOxidising);
@@ -152,7 +152,7 @@ import java.io.*;
          if (button !=2){
             itemID              = dialog.getFieldInt(1);
             itemName            = dialog.getField(2);
-            itempH              = (float) dialog.getFieldDouble(3);
+            item_pH              = (float) dialog.getFieldDouble(3);
             itemExplosive       = dialog.getFieldBoolean(4);
             itemFlammable       = dialog.getFieldBoolean(5);
             itemOxidising       = dialog.getFieldBoolean(6);
@@ -213,7 +213,7 @@ import java.io.*;
             
       copy.itemName = itemName.toString();
             
-      copy.itempH = itempH;
+      copy.item_pH = item_pH;
             
       copy.itemExplosive = itemExplosive;
             
@@ -259,7 +259,7 @@ import java.io.*;
          file.handle.writeBoolean(deleted_case);
          file.handle.writeInt(itemID);
          file.handle.writeUTF(itemName);
-         file.handle.writeFloat(itempH);
+         file.handle.writeFloat(item_pH);
          file.handle.writeBoolean(itemExplosive);
          file.handle.writeBoolean(itemFlammable);
          file.handle.writeBoolean(itemOxidising);
@@ -289,7 +289,7 @@ import java.io.*;
          deleted_case  = file.handle.readBoolean();
             itemID = file.handle.readInt();
             itemName = file.handle.readUTF();
-            itempH = file.handle.readFloat();
+            item_pH = file.handle.readFloat();
             itemExplosive = file.handle.readBoolean();
             itemFlammable = file.handle.readBoolean();
             itemOxidising = file.handle.readBoolean();
@@ -349,7 +349,7 @@ import java.io.*;
 /** This method creates a string representation of the object*/
 
    public String toString(){
-      return " : itemID ("+itemID+")" + " : itemName ("+itemName+")" + " : itempH ("+itempH+")" + " : itemExplosive ("+itemExplosive+")" + " : itemFlammable ("+itemFlammable+")" + " : itemOxidising ("+itemOxidising+")" + " : itemCorrosive ("+itemCorrosive+")" + " : itemToxicity ("+itemToxicity+")" + " : itemEnvironment ("+itemEnvironment+")" + " : itemLocation ("+itemLocation+")" + " : itemQuantity ("+itemQuantity[0]+ ", "+itemQuantity[1]+ ", "+itemQuantity[2] +")" + " : comments ("+comments+")" + "";
+      return " : itemID ("+itemID+")" + " : itemName ("+itemName+")" + " : itempH ("+item_pH+")" + " : itemExplosive ("+itemExplosive+")" + " : itemFlammable ("+itemFlammable+")" + " : itemOxidising ("+itemOxidising+")" + " : itemCorrosive ("+itemCorrosive+")" + " : itemToxicity ("+itemToxicity+")" + " : itemEnvironment ("+itemEnvironment+")" + " : itemLocation ("+itemLocation+")" + " : itemQuantity ("+itemQuantity[0]+ ", "+itemQuantity[1]+ ", "+itemQuantity[2] +")" + " : comments ("+comments+")" + "";
    }
 }
 //End of Class

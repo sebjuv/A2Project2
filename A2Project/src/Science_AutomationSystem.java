@@ -19,8 +19,8 @@ String ItemsFile = "datafiles/Items.dat";
 
 HashFile itemsFile = new HashFile(ItemsFile, 100, new Items());
 
-HashFile ChemicalHash = new HashFile(ChemicalFile, 100, new Chemical()); // this needs to be seen to and resolved before further progress can be made!!
-HashFile EquipmentHash = new HashFile(EquipmentFile, 100, new Equipment());
+HashFile chemicalFile = new HashFile(ChemicalFile, 100, new Chemical()); // this needs to be seen to and resolved before further progress can be made!!
+HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
  
 
    //  CLASS METHODS
@@ -53,15 +53,26 @@ HashFile EquipmentHash = new HashFile(EquipmentFile, 100, new Equipment());
   
 	   
 	  
-	   
+	   public void addChemical (){
+		   
+	   }
   
 	public void addItem() {
 		
-		Items items = new Items(science_AutomationStyle);
-		items.input();
-		itemsFile.store(items);
+		// make a menu which allows two options 
+		// make a method which 
+		
+		Chemical chemical = new Chemical (science_AutomationStyle);
+		chemical.input();
+		chemicalFile.store(chemical);
+		
+		Equipment equipment = new Equipment (science_AutomationStyle);
+		equipment.input();
+		equipmentFile.store(equipment);
 
 	}
+	
+	
 	 
 	   
    //  end of method
