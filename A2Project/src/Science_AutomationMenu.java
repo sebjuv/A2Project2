@@ -12,12 +12,14 @@ public class Science_AutomationMenu {
    PC_Menu mainMenuMenu = new PC_Menu("Main Menu", "Item, Admin, Quit");
    PC_Menu itemMenu = new PC_Menu("Item", "Add Item, Edit Item, Request Item, Search Item, Main Menu");
    PC_Menu adminMenu = new PC_Menu("Admin", "Item Hazard Report, pH Level, Available Stock, Main Menu");
-
+   PC_Menu addItemMenu = new PC_Menu ("Add Item","Chemical, Equipment");
+   
    //  CLASS METHODS
    Science_AutomationMenu() {  //  constructor
       mainMenuMenu.setStyle(science_AutomationSystem.science_AutomationStyle);
       itemMenu.setStyle(science_AutomationSystem.science_AutomationStyle);
       adminMenu.setStyle(science_AutomationSystem.science_AutomationStyle);
+      addItemMenu.setStyle(science_AutomationSystem.science_AutomationStyle);
     
    }
 
@@ -40,11 +42,13 @@ public class Science_AutomationMenu {
    } 
 
    private void itemRun(){
+	   
       boolean finished = false;
       do {
          switch(itemMenu.choice()){
             case 1 : itemMenu.setVisible(false);
-                     science_AutomationSystem.addItem(); // Make a menu for the chemical and the equipment menus
+                    // science_AutomationSystem.addItem(); // Make a menu for the chemical and the equipment menus
+                     addItemRun();
                      break;
             case 2 : itemMenu.setVisible(false);
                      science_AutomationSystem.editItem();
@@ -61,17 +65,29 @@ public class Science_AutomationMenu {
          } //  end of switch
       } while(!finished);
    } 
-/* this is where the menus for the add item. Essentiall, make the add item a new menu and make that menu go to this.
-   private void addItem(){
+// this is where the menus for the add item. Essential, make the add item a new menu and make that menu go to this.
+   private void addItemRun(){
+	   
 	   boolean finished = false;
 	   do{
-		   switch(addItem.choice()){
-		   case 1 : addItem.setVisible(false);
+		   switch(addItemMenu.choice()){
 		   
-		   }
-	   }
+		   case 1 : addItemMenu.setVisible(false);
+		   science_AutomationSystem.addChemical();
+		   break;
+		   
+		   case 2 : addItemMenu.setVisible(false);
+		   science_AutomationSystem.addEquipment();
+		   break;
+		   
+		   case 3 : addItemMenu.setVisible(false);
+		   finished = true;
+		   break;		   
+		   
+		  }
+	   } while(!finished);
    }
-*/
+
    private void adminRun(){
       boolean finished = false;
       do {

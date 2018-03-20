@@ -10,15 +10,16 @@ public class Science_AutomationSystem {
 
    //  CLASS VARIABLES
    PC_Style science_AutomationStyle = new PC_Style();//  holds the style for the user interface
- public static int itemnumber; 
- public static boolean checkchemicals;
+ public static int chemicalIDnumber;
+ public static int equipmentIDnumber;
+ public static int itemQuantity;
+
  
 String ChemicalFile = "datafiles/Chemical.dat";
 String EquipmentFile = "datafiles/Equipment.dat";
 String ItemsFile = "datafiles/Items.dat";
 
 HashFile itemsFile = new HashFile(ItemsFile, 100, new Items());
-
 HashFile chemicalFile = new HashFile(ChemicalFile, 100, new Chemical()); // this needs to be seen to and resolved before further progress can be made!!
 HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
  
@@ -45,45 +46,36 @@ HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
     	    {
     	        quit();
     	    }
-    	else {
+ else {
     	     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
       }//  end of method
-
-      }
+}
   
 	   
 	  
 	   public void addChemical (){
-		   
+	
+	Chemical chemical = new Chemical (science_AutomationStyle);
+		chemical.input();
+		chemicalFile.store(chemical);
+	   }
+	   
+	   public void addEquipment (){
+			Equipment equipment = new Equipment (science_AutomationStyle);
+			equipment.input();
+			equipmentFile.store(equipment);
 	   }
   
 	public void addItem() {
 		
-		// make a menu which allows two options 
-		// make a method which 
-		
-		Chemical chemical = new Chemical (science_AutomationStyle);
-		chemical.input();
-		chemicalFile.store(chemical);
-		
-		Equipment equipment = new Equipment (science_AutomationStyle);
-		equipment.input();
-		equipmentFile.store(equipment);
-
 	}
-	
-	
-	 
-	   
-   //  end of method
+ //  end of method
 
 
    public void editItem() {
 	   
-	   
 	   }
-	   
-   //  end of method
+//  end of method
 
 
    public void requestItem() {
@@ -92,16 +84,22 @@ HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
 	   boolean Confirm = false;
 	   
 	   
-	   
-	   
-	   
-	   
-	   
    }//  end of method
 
 
    public void searchItem() {
 	   PC_Dialog Search = new PC_Dialog ("Search Item","Item Number, Item Name, Date Purchased+, Stored as Chemical?* ", "Search, Cancel");
+	   
+	   chemicalIDnumber = Search.getFieldInt(1);
+	   chemical = (Chemical) chemicalFile.retrieve(chemicalIDnumber);
+	   if(chemical != null) {
+		   chemical.edit();
+		   chemicalFile.store(chemical);
+		   
+	   }
+	   
+	   
+	   
 	   Search.choice();
 	   Search.setSize(100, 100);
 	   Search.setCenter(true);
@@ -139,6 +137,8 @@ HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
 
 
    public void availableStock() {
+	   
+	   
    }//  end of method
 
 
