@@ -88,8 +88,12 @@ HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
 
 
    public void searchItem() {
-	   PC_Dialog Search = new PC_Dialog ("Search Item","Item Number, Item Name, Date Purchased+, Stored as Chemical?* ", "Search, Cancel");
+	   PC_Dialog Search = new PC_Dialog ("Search Item","Item Number, Item Name, Date Purchased+, Stored as^ ", "Search, Cancel");
+	   Search.choice();
+	   ]
 	   
+	   
+	   /*
 	   chemicalIDnumber = Search.getFieldInt(1);
 	   chemical = (Chemical) chemicalFile.retrieve(chemicalIDnumber);
 	   if(chemical != null) {
@@ -104,7 +108,7 @@ HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
 	   Search.setSize(100, 100);
 	   Search.setCenter(true);
 	   
-	   
+	   */
 	   
 	   
 	   
