@@ -18,9 +18,16 @@ public class Science_AutomationSystem {
 String ChemicalFile = "datafiles/Chemical.dat";
 String EquipmentFile = "datafiles/Equipment.dat";
 String ItemsFile = "datafiles/Items.dat";
+String itemName = "Item Name";
+String itemNumber = "Item Number";
+String datePurchased = "Date Purchased";
+String chemicalOption = "Chemical";
+String equipmentOption = "Equipment";
+String cancel = "Cancel";
+
 
 HashFile itemsFile = new HashFile(ItemsFile, 100, new Items());
-HashFile chemicalFile = new HashFile(ChemicalFile, 100, new Chemical()); // this needs to be seen to and resolved before further progress can be made!!
+HashFile chemicalFile = new HashFile(ChemicalFile, 100, new Chemical()); 
 HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
  
 
@@ -53,19 +60,21 @@ HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
   
 	   
 	  
-	   public void addChemical (){
+public void addChemical (){
 	
 	Chemical chemical = new Chemical (science_AutomationStyle);
 		chemical.input();
 		chemicalFile.store(chemical);
-	   }
-	   
-	   public void addEquipment (){
+}
+// end of method
+
+public void addEquipment (){
 			Equipment equipment = new Equipment (science_AutomationStyle);
 			equipment.input();
 			equipmentFile.store(equipment);
-	   }
-  
+}
+// end of method
+
 	public void addItem() {
 		
 	}
@@ -96,11 +105,7 @@ HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
 
    public void searchItem() {
 	   // strings defining objects
-	   String itemName = new String ("Item Name");
-	   String itemNumber = new String("Item Number");
-	   String datePurchased = new String ("Date Purchased");
-	   String chemicalOption = new String ("Chemical");
-	   String equipmentOption = new String ("Equipment");
+	  
 	   
 	   
 	  // JCheckBox searchBy = new JCheckBox ("Search Item By:");
@@ -111,13 +116,9 @@ HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
 	   
 	if (searchBy != -1);
 	{
-		int Choice = JOptionPane.showOptionDialog(null, "Which database do you want to seach?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
-	
-	
-	}
-	if (Choice == ){
-		
-	}
+		int choice = JOptionPane.showOptionDialog(null, "Which database do you want to seach?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
+}
+	 
 		  
 	   
 	   
@@ -150,7 +151,8 @@ HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
 	   
 	   
 	   
-   }//  end of method
+   }
+//  end of method
 
 
    public void itemHazardReport() {
@@ -179,6 +181,7 @@ HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
 
 
    public void availableStock() {
+	   
 	   
 	   
    }//  end of method

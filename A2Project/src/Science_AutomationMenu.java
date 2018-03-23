@@ -47,7 +47,7 @@ public class Science_AutomationMenu {
       do {
          switch(itemMenu.choice()){
             case 1 : itemMenu.setVisible(false);
-                    // science_AutomationSystem.addItem(); // Make a menu for the chemical and the equipment menus
+                     science_AutomationSystem.addItem(); // Make a menu for the chemical and the equipment menus
                      addItemRun();
                      break;
             case 2 : itemMenu.setVisible(false);
@@ -81,10 +81,11 @@ public class Science_AutomationMenu {
 		   break;
 		   
 		   case 3 : addItemMenu.setVisible(false);
+		   science_AutomationSystem.quit();
 		   finished = true;
 		   break;		   
 		   
-		  }
+		  }// end of switch
 	   } while(!finished);
    }
 
