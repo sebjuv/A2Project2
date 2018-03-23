@@ -13,7 +13,7 @@ public class Science_AutomationSystem {
  public static int chemicalIDnumber;
  public static int equipmentIDnumber;
  public static int itemQuantity;
-
+ public boolean isSelected;
  
 String ChemicalFile = "datafiles/Chemical.dat";
 String EquipmentFile = "datafiles/Equipment.dat";
@@ -79,18 +79,56 @@ HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
 
 
    public void requestItem() {
-	   PC_Dialog RequestItem = new PC_Dialog ("Item Quantity", "Date for Use, Period for Use", "Confirm , Cancel");
+	   int itemQuantity;
+	   int periodUse;
+	   boolean confirm = false;
+	   
+	   PC_Dialog RequestItem = new PC_Dialog ("Item Quantity", "Quantity Needed, Date for Use, Period for Use", "Confirm , Cancel");
 	   RequestItem.choice();
-	   boolean Confirm = false;
+	   
+	  itemQuantity= RequestItem.getFieldInt(1);
+	  periodUse = RequestItem.getFieldInt(3);
+	  
 	   
 	   
    }//  end of method
 
 
    public void searchItem() {
-	   PC_Dialog Search = new PC_Dialog ("Search Item","Item Number, Item Name, Date Purchased+, Stored as^ ", "Search, Cancel");
+	   // strings defining objects
+	   String itemName = new String ("Item Name");
+	   String itemNumber = new String("Item Number");
+	   String datePurchased = new String ("Date Purchased");
+	   String chemicalOption = new String ("Chemical");
+	   String equipmentOption = new String ("Equipment");
+	   
+	   
+	  // JCheckBox searchBy = new JCheckBox ("Search Item By:");
+	   Object[] searchOptions = {itemName,itemNumber, datePurchased}; // objects for the search table
+	   Object[] determineTable = {chemicalOption, equipmentOption}; // objects for choice between chemical and equipment tables
+	   
+	   int searchBy = JOptionPane.showOptionDialog(null, "What would you like to search by?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, searchOptions, searchOptions[0]);
+	   
+	if (searchBy != -1);
+	{
+		int Choice = JOptionPane.showOptionDialog(null, "Which database do you want to seach?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
+	
+	
+	}
+	if (Choice == ){
+		
+	}
+		  
+	   
+	   
+	   
+	   /*
+	   PC_Dialog Search = new PC_Dialog ("Search Item","Item Number, Item Name, Date Purchased+, Chemical?*", "Search, Cancel");
 	   Search.choice();
-	   ]
+	   */
+	   
+	   
+	   // add a choice box 
 	   
 	   
 	   /*
@@ -116,13 +154,13 @@ HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
 
 
    public void itemHazardReport() {
-	   
+	/*   
 	   String printreport = new String("printreport");
 	  
 	  
 	   printhazard paper = new printhazard();
 	  
-	   /*
+	   
 	   paper.setOrientation(printhazard.PORTRAIT_ORIENTATION);
 	   display();
 	   PC_Paper();
