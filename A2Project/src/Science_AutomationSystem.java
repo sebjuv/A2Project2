@@ -91,6 +91,7 @@ public void addEquipment (){
 	  
 	  
 	   PC_Dialog editItem = new PC_Dialog ("Edit Item", "Chemical*, Equipment*", "Confirm , Cancel");
+	   editItem.setSize(300, 300);
 	   editItem.choice();
 	   
 	  chemicalChoice = editItem.getFieldBoolean(1);

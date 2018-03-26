@@ -16,6 +16,7 @@ public class Science_AutomationMenu {
    
    //  CLASS METHODS
    Science_AutomationMenu() {  //  constructor
+	   
       mainMenuMenu.setStyle(science_AutomationSystem.science_AutomationStyle);
       itemMenu.setStyle(science_AutomationSystem.science_AutomationStyle);
       adminMenu.setStyle(science_AutomationSystem.science_AutomationStyle);
@@ -24,6 +25,7 @@ public class Science_AutomationMenu {
    }
 
    private void mainmenuRun(){   
+	   Splash startSplash = new Splash (5,null);
 	   
       boolean finished = false;
       do {
@@ -39,6 +41,7 @@ public class Science_AutomationMenu {
                      break;
          } //  end of switch
       } while(!finished);  
+      while (startSplash.getWorking());
    } 
 
    private void itemRun(){
