@@ -13,6 +13,7 @@ public class Science_AutomationSystem {
  public static int chemicalIDnumber;
  public static int equipmentIDnumber;
  public static int itemQuantity;
+ public static int periodUse;
  public boolean isSelected;
  
 String ChemicalFile = "datafiles/Chemical.dat";
@@ -77,26 +78,54 @@ public void addEquipment (){
 
 	public void addItem() {
 		
+		
+		
 	}
  //  end of method
 
 
    public void editItem() {
 	   
-	   }
+	  boolean chemicalChoice;
+	  boolean equipmentChoice;
+	  
+	  
+	   PC_Dialog editItem = new PC_Dialog ("Edit Item", "Chemical*, Equipment*", "Confirm , Cancel");
+	   editItem.choice();
+	   
+	  chemicalChoice = editItem.getFieldBoolean(1);
+	  equipmentChoice = editItem.getFieldBoolean(2);
+	  
+	  if (chemicalChoice == true & equipmentChoice == false){
+		  // output the chemical table and edit the item
+	  }
+	  else if (chemicalChoice == false & equipmentChoice == true){
+		  // output the equipment table and edit the item
+		  
+	  }
+	  else if ((chemicalChoice == true & equipmentChoice == true)|(chemicalChoice == false & equipmentChoice == false));
+	  // return error as they can't both be ticked or both be not selected
+ }
+
+
+	   
+	   
+	   
+	   
 //  end of method
 
 
    public void requestItem() {
-	   int itemQuantity;
-	   int periodUse;
+	   int itemRequiredQuantity;
 	   boolean confirm = false;
 	   
-	   PC_Dialog RequestItem = new PC_Dialog ("Item Quantity", "Quantity Needed, Date for Use, Period for Use", "Confirm , Cancel");
+	   PC_Dialog RequestItem = new PC_Dialog ("Item Quantity", "Quantity Needed, Date for Use+, Period for Use", "Confirm , Cancel");
 	   RequestItem.choice();
 	   
-	  itemQuantity= RequestItem.getFieldInt(1);
+	  itemRequiredQuantity = RequestItem.getFieldInt(1);
 	  periodUse = RequestItem.getFieldInt(3);
+	  
+	  itemQuantity = itemQuantity - itemRequiredQuantity; // the operation used to take away the requested item from the actual item quantity
 	  
 	   
 	   
@@ -119,7 +148,7 @@ public void addEquipment (){
 		int choice = JOptionPane.showOptionDialog(null, "Which database do you want to seach?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
 }
 	 
-		  
+		// add a listener to the buttons which return dialog boxes selected. The dialog boxes must ask for the appropriate datatype. The code will then output the table and the criteria.  
 	   
 	   
 	   
@@ -182,6 +211,8 @@ public void addEquipment (){
 
    public void availableStock() {
 	   
+	 
+	   
 	   
 	   
    }//  end of method
@@ -212,6 +243,7 @@ public void addEquipment (){
         style.setMenuTitleFont(null);
         style.setMenuTitleForegroundColour(null);
         style.setMenuTitlePicture("");
+        
         //table styles
         style.setTableBackgroundColour(null);
         style.setTableButtonBackgroundColour(null);
@@ -225,10 +257,10 @@ public void addEquipment (){
         style.setTableTitleFont(null);
         style.setTableTitleForegroundColour(null);
         style.setTableTitlePicture("");
-        
         style.setTextAreaBackgroundColour(null);
         style.setTextAreaFont(null);
         style.setTextAreaForegroundColour(null);
+        
         //window style
         style.setWindowBackgroundColour(null);
         style.setWindowBackgroundPicture("");

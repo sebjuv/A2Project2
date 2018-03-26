@@ -65,7 +65,7 @@ public class Science_AutomationMenu {
          } //  end of switch
       } while(!finished);
    } 
-// this is where the menus for the add item. Essential, make the add item a new menu and make that menu go to this.
+
    private void addItemRun(){
 	   
 	   boolean finished = false;
@@ -82,8 +82,11 @@ public class Science_AutomationMenu {
 		   
 		   case 3 : addItemMenu.setVisible(false);
 		   science_AutomationSystem.quit();
-		   finished = true;
 		   break;		   
+		   
+		   case 4 : addItemMenu.setVisible(false);
+		   finished = true;
+		   break;
 		   
 		  }// end of switch
 	   } while(!finished);
