@@ -134,7 +134,7 @@ public void addEquipment (){
 
 
    public void searchItem() {
-	   // strings defining objects
+	   
 	  
 	 PC_Table searchTable = new PC_Table("Search Table", 0, "ID#, Item Name, Item Quantity, Item Hazard, Item Location ","OK");
 	 
@@ -144,10 +144,7 @@ public void addEquipment (){
 	 // chemical and equipment hash tables.
 	   
 	 
-	 
-	 
-	 
-	  // JCheckBox searchBy = new JCheckBox ("Search Item By:");
+	 // JCheckBox searchBy = new JCheckBox ("Search Item By:");
 	   Object[] searchOptions = {itemName,itemNumber, itemLocation}; // objects for the search table
 	   Object[] determineTable = {chemicalOption, equipmentOption}; // objects for choice between chemical and equipment tables
 	   
