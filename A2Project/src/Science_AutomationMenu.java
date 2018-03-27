@@ -25,7 +25,7 @@ public class Science_AutomationMenu {
    }
 
    private void mainmenuRun(){   
-	   Splash startSplash = new Splash (5,null);
+	   Splash startSplash = new Splash (2,null);
 	   
       boolean finished = false;
       do {

@@ -21,7 +21,7 @@ String EquipmentFile = "datafiles/Equipment.dat";
 String ItemsFile = "datafiles/Items.dat";
 String itemName = "Item Name";
 String itemNumber = "Item Number";
-String datePurchased = "Date Purchased";
+String itemLocation = "Item Location";
 String chemicalOption = "Chemical";
 String equipmentOption = "Equipment";
 String cancel = "Cancel";
@@ -136,50 +136,178 @@ public void addEquipment (){
    public void searchItem() {
 	   // strings defining objects
 	  
+	 PC_Table searchTable = new PC_Table("Search Table", 0, "ID#, Item Name, Item Quantity, Item Hazard, Item Location ","OK");
+	 
+	 Chemical chemical = new Chemical (science_AutomationStyle);
+	 
+	 Equipment equipment = new Equipment (science_AutomationStyle);
+	 // chemical and equipment hash tables.
 	   
-	   
+	 
+	 
+	 
+	 
 	  // JCheckBox searchBy = new JCheckBox ("Search Item By:");
-	   Object[] searchOptions = {itemName,itemNumber, datePurchased}; // objects for the search table
+	   Object[] searchOptions = {itemName,itemNumber, itemLocation}; // objects for the search table
 	   Object[] determineTable = {chemicalOption, equipmentOption}; // objects for choice between chemical and equipment tables
 	   
+	   
 	   int searchBy = JOptionPane.showOptionDialog(null, "What would you like to search by?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, searchOptions, searchOptions[0]);
+	   int choice = JOptionPane.showOptionDialog(null, "Which database do you want to seach?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
+		
 	   
-	if (searchBy != -1);
-	{
-		int choice = JOptionPane.showOptionDialog(null, "Which database do you want to seach?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
-}
-	 
-		// add a listener to the buttons which return dialog boxes selected. The dialog boxes must ask for the appropriate datatype. The code will then output the table and the criteria.  
+	   if ((searchBy & choice) != -1){
+		
+			System.out.println("Search choice: " + searchBy);
+			System.out.println("Table Searched: " + choice );
+			
+		}
+	   if ( choice == -1  ) {
+			JOptionPane.showMessageDialog(null, "Error - select search criteria", "Error Message", 1, null);
+			
+		} else if (searchBy == -1 ) {
+			JOptionPane.showMessageDialog(null, "Error - select search criteria", "Error Message", 1, null);
+		}
+	   if ((searchBy == 0 ) & (choice == 0 )) {
+			String chemicalSearchName = JOptionPane.showInputDialog(null, "Chemical Name", "Search By Name", 1);
+			System.out.println(chemicalSearchName);
+			
+			int row = 0;
+			   chemicalFile.resetSerialAccess();// prepare the file for serial access
+			   while (chemicalFile.moreSerialRecords()) {//loop for each quotation in the file
+			   chemical = (Chemical) chemicalFile.getNextSerialValue(); // read chemical
+			   if (chemical.reactant_Name.contains(chemicalSearchName)) { //if the surname matches
+			   searchTable.addRow();//add a new row to the table
+			   //put the fields of chemical into the table
+			   searchTable.setValueAt(chemical.reactant_Name, row, 1);
+			   searchTable.setValueAt(chemical.reference_Code, row, 2);
+			   searchTable.setValueAt(chemical.location, row,4);
+			   searchTable.setValueAt(chemical.quantity, row, 3);
+			   searchTable.setValueAt(chemical.hazard_Type, row, 5);
+			   
+			   row++; // add one to row
+			   }
+			   }
+			   searchTable.choice();//display the table
+			
+		}
+	   if ((searchBy == 1 ) & (choice == 0 )) {
+			String chemicalID = JOptionPane.showInputDialog(null, "Chemical ID", "Search By ID Number", 1);
+			System.out.println(chemicalID);
+			
+			int row = 0;
+			   chemicalFile.resetSerialAccess();// prepare the file for serial access
+			   while (chemicalFile.moreSerialRecords()) {//loop for each quotation in the file
+			   chemical = (Chemical) chemicalFile.getNextSerialValue(); // read chemical
+			   if (chemical.reference_Code.contains(chemicalID)) { //if the surname matches
+			   searchTable.addRow();//add a new row to the table
+			   //put the fields of chemical into the table
+			   searchTable.setValueAt(chemical.reactant_Name, row, 1);
+			   searchTable.setValueAt(chemical.reference_Code, row, 2);
+			   searchTable.setValueAt(chemical.location, row,4);
+			   searchTable.setValueAt(chemical.quantity, row, 3);
+			   searchTable.setValueAt(chemical.hazard_Type, row, 5);
+			   
+			   row++; // add one to row
+			   }
+			   }
+			   searchTable.choice();//display the table
+		}
+	   if ((searchBy == 2 ) & (choice == 0 )) {
+			String chemicalLocation = JOptionPane.showInputDialog(null, "Chemical Location", "Search By Location Name", 1);
+			System.out.println(chemicalLocation);
+			int row = 0;
+			   chemicalFile.resetSerialAccess();// prepare the file for serial access
+			   while (chemicalFile.moreSerialRecords()) {//loop for each quotation in the file
+			   chemical = (Chemical) chemicalFile.getNextSerialValue(); // read chemical
+			   if (chemical.location.contains(chemicalLocation)) { //if the surname matches
+			   searchTable.addRow();//add a new row to the table
+			   //put the fields of chemical into the table
+			   searchTable.setValueAt(chemical.reactant_Name, row, 1);
+			   searchTable.setValueAt(chemical.reference_Code, row, 2);
+			   searchTable.setValueAt(chemical.location, row,4);
+			   searchTable.setValueAt(chemical.quantity, row, 3);
+			   searchTable.setValueAt(chemical.hazard_Type, row, 5);
+			   
+			   row++; // add one to row
+			   }
+			   }
+			   searchTable.choice();//display the table
+			
+		}
+	   if ((searchBy == 0 ) & (choice == 1 )) {
+			String equipmentSearchName = JOptionPane.showInputDialog(null, "Equipment Name", "Search By Name", 1);
+			System.out.println(equipmentSearchName);
+			
+			int row = 0;
+			   equipmentFile.resetSerialAccess();// prepare the file for serial access
+			   while (equipmentFile.moreSerialRecords()) {//loop for each quotation in the file
+				   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read chemical
+			   if (equipment.item_Name.contains(equipmentSearchName)) { //if the surname matches
+			   searchTable.addRow();//add a new row to the table
+			   //put the fields of chemical into the table
+			   searchTable.setValueAt(equipment.item_Name, row, 1);
+			   searchTable.setValueAt(equipment.product_Code, row, 2);
+			   searchTable.setValueAt(equipment.cupboard_Number, row,4);
+			   searchTable.setValueAt(equipment.quantity, row, 3);
+			   searchTable.setValueAt(equipment.room, row, 5);
+			   searchTable.setValueAt(equipment.hazard_Warning,row,6);
+			   
+			   row++; // add one to row
+			   }
+			   }
+			   searchTable.choice();//display the table
+			
+		}
 	   
-	   
-	   
-	   /*
-	   PC_Dialog Search = new PC_Dialog ("Search Item","Item Number, Item Name, Date Purchased+, Chemical?*", "Search, Cancel");
-	   Search.choice();
-	   */
-	   
-	   
-	   // add a choice box 
-	   
-	   
-	   /*
-	   chemicalIDnumber = Search.getFieldInt(1);
-	   chemical = (Chemical) chemicalFile.retrieve(chemicalIDnumber);
-	   if(chemical != null) {
-		   chemical.edit();
-		   chemicalFile.store(chemical);
-		   
-	   }
-	   
-	   
-	   
-	   Search.choice();
-	   Search.setSize(100, 100);
-	   Search.setCenter(true);
-	   
-	   */
-	   
-	   
+	   if ((searchBy == 1 ) & (choice == 1 )) {
+			String equipmentID = JOptionPane.showInputDialog(null, "Equipment Number", "Search By Number", 1);
+			System.out.println(equipmentID);
+			
+			int row = 0;
+			   equipmentFile.resetSerialAccess();// prepare the file for serial access
+			   while (equipmentFile.moreSerialRecords()) {//loop for each quotation in the file
+				   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read chemical
+			   if (equipment.product_Code.contains(equipmentID)) { //if the surname matches
+			   searchTable.addRow();//add a new row to the table
+			   //put the fields of chemical into the table
+			   searchTable.setValueAt(equipment.item_Name, row, 1);
+			   searchTable.setValueAt(equipment.product_Code, row, 2);
+			   searchTable.setValueAt(equipment.cupboard_Number, row,4);
+			   searchTable.setValueAt(equipment.quantity, row, 3);
+			   searchTable.setValueAt(equipment.room, row, 5);
+			   searchTable.setValueAt(equipment.hazard_Warning,row,6);
+			   
+			   row++; // add one to row
+			   }
+			   }
+			   searchTable.choice();//display the table
+		}
+	   if ((searchBy == 2 ) & (choice == 1 )) {
+			String equipmentLocation = JOptionPane.showInputDialog(null, "Equipment Location", "Search By Location Name", 1);
+			System.out.println(equipmentLocation);
+			
+			int row = 0;
+			   equipmentFile.resetSerialAccess();// prepare the file for serial access
+			   while (equipmentFile.moreSerialRecords()) {//loop for each quotation in the file
+			   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read chemical
+			   if ((equipment.cupboard_Number.contains(equipmentLocation) | equipment.room.contains(equipmentLocation))) { //if the surname matches
+			   searchTable.addRow();//add a new row to the table
+			   //put the fields of chemical into the table
+			   searchTable.setValueAt(equipment.item_Name, row, 1);
+			   searchTable.setValueAt(equipment.product_Code, row, 2);
+			   searchTable.setValueAt(equipment.cupboard_Number, row,4);
+			   searchTable.setValueAt(equipment.quantity, row, 3);
+			   searchTable.setValueAt(equipment.room, row, 5);
+			   searchTable.setValueAt(equipment.hazard_Warning,row,6);
+			   
+			   row++; // add one to row
+			   }
+			   }
+			   searchTable.choice();//display the table
+		}
+	
+
 	   
    }
 //  end of method
