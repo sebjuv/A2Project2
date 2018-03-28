@@ -44,11 +44,12 @@ HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
 
 
 
-   public void quit() {
+public void quit() {
+	
       System.exit(0);
       }
       
-      private void windowClosing(java.awt.event.WindowEvent evt) {                                   
+private void windowClosing(java.awt.event.WindowEvent evt) {                                   
     	    int confirmed = JOptionPane.showConfirmDialog(null, "Exit Program?","EXIT",JOptionPane.YES_NO_OPTION);
     	    if(confirmed == JOptionPane.YES_OPTION)
     	    {
@@ -67,6 +68,7 @@ public void addChemical (){
 		chemical.input();
 		chemicalFile.store(chemical);
 }
+
 // end of method
 
 public void addEquipment (){
@@ -74,80 +76,107 @@ public void addEquipment (){
 			equipment.input();
 			equipmentFile.store(equipment);
 }
+
 // end of method
 
-	public void addItem() {
+public void addItem() {
 		
 		
 		
 	}
- //  end of method
-
-
-   public void editItem() {
-	   
-	   PC_Table editTable = new PC_Table("Edit Table", 0, "Item Quantity, Item Name, ID, Item Hazard, Item Location ","OK");
-		// JScrollPane searchTableScroll = new JScrollPane (searchTable);
-		 editTable.setSize(1500, 1000);
-		 editTable.add(new JScrollPane());
-		 
-		 
-		 Chemical chemical = new Chemical (science_AutomationStyle);
-		 
-		 Equipment equipment = new Equipment (science_AutomationStyle);
-		 // chemical and equipment hash tables.
-		   
-		 // JCheckBox searchBy = new JCheckBox ("Search Item By:");
-		   Object[] searchOptions = {itemName,itemNumber, itemLocation}; // objects for the search table
-		   Object[] determineTable = {chemicalOption, equipmentOption}; // objects for choice between chemical and equipment tables
-		   
-		   
-		    int choice = JOptionPane.showOptionDialog(null, "Which database do you want to edit?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
-			
-		   
-		   if (( choice) != -1){
-			
-				System.out.println("Table Searched: " + choice );
-				
-			}
-		   if ( choice == -1  ) {
-				JOptionPane.showMessageDialog(null, "Please select a database to edit", "Error Message", 2, null);
-				
-			} 
-		   if (choice == 1 ){
-			   String chemicalID = JOptionPane.showInputDialog(null, "Chemical ID", "Search By ID Number", 1);
-				System.out.println(chemicalID);
-				
-				int row = 0;
-				   chemicalFile.resetSerialAccess();// prepare the file for serial access
-				   while (chemicalFile.moreSerialRecords()) {//loop for each quotation in the file
-				   chemical = (Chemical) chemicalFile.getNextSerialValue(); // read chemical
-				   if (chemical.reference_Code.contains(chemicalID)) { //if the surname matches
-				   editTable.addRow();//add a new row to the table
-				   //put the fields of chemical into the table
-				   editTable.setValueAt(chemical.reactant_Name, row, 1);
-				   editTable.setValueAt(chemical.reference_Code, row, 2);
-				   editTable.setValueAt(chemical.location, row,4);
-				   editTable.setValueAt(chemical.quantity, row, 3);
-				   editTable.setValueAt(chemical.hazard_Type, row, 5);
-				   
-				   row++; // add one to row
-				   }
-				   }
-				   editTable.choice();//display the table
-			   
-		   }
- }
-
-
-	   
-	   
-	   
-	   
 //  end of method
 
 
-   public void requestItem() {
+public void editItem() {
+	
+	PC_Table editTable = new PC_Table("Search Table", 0, "Item Quantity, Item Name, ID, Item Hazard, Item Location ","OK");
+		editTable.setSize(1500, 1000);
+	
+	Chemical chemical = new Chemical (science_AutomationStyle);
+	 
+	Equipment equipment = new Equipment (science_AutomationStyle);
+	
+	Object[] determineTable = {chemicalOption, equipmentOption}; // objects for choice between chemical and equipment tables
+	   
+	int choice = JOptionPane.showOptionDialog(null, "Which database do you want to search?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
+		
+	
+	
+	
+	
+	if ( choice == -1  ) {
+		JOptionPane.showMessageDialog(null, "Error - select search criteria", "Error Message", 1, null);
+		
+	}
+	if ( choice == 0 ) {
+		
+		String userInput = JOptionPane.showInputDialog(null, "Input an ID number or a Reactant Name:", "Search By ID Number or Reactant Name", 1);
+		System.out.println(userInput);
+		
+		if (userInput == null) {
+			JOptionPane.showMessageDialog(null, "Pleaase select a search criteria", "Error Message", 1, null);
+			
+			
+		}else
+		
+		{
+		
+		int row = 0;
+		   chemicalFile.resetSerialAccess();// prepare the file for serial access
+		   while (chemicalFile.moreSerialRecords()) {//loop for each quotation in the file
+		   chemical = (Chemical) chemicalFile.getNextSerialValue(); // read chemical
+		   if ((chemical.reference_Code.contains(userInput))|(chemical.reactant_Name.contains(userInput))) { //if the Inputed values match
+		   editTable.addRow();//add a new row to the table
+		   //put the fields of chemical into the table
+		   editTable.setValueAt(chemical.reactant_Name, row, 1);
+		   editTable.setValueAt(chemical.reference_Code, row, 2);
+		   editTable.setValueAt(chemical.location, row,4);
+		   editTable.setValueAt(chemical.quantity, row, 3);
+		   editTable.setValueAt(chemical.hazard_Type, row, 5);
+		   
+		   row++; // add one to row
+		   }
+		   }
+		   editTable.choice();//display the table
+		   editTable.setSize(1920, 1080);
+		}
+		}
+	
+	if ( choice == 1 ) {
+		String userInput = JOptionPane.showInputDialog(null, "Equipment Location", "Search By Location Name", 1);
+		System.out.println(userInput);
+		
+		if (userInput == null) {
+			JOptionPane.showMessageDialog(null, "Pleaase select a search criteria", "Error Message", 1, null);
+			
+			
+		}else{
+		int row = 0;
+		   equipmentFile.resetSerialAccess();// prepare the file for serial access
+		   while (equipmentFile.moreSerialRecords()) {//loop for each quotation in the file
+		   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read chemical
+		   if ((equipment.cupboard_Number.contains(userInput) | equipment.room.contains(userInput))) { //if the surname matches
+		   editTable.addRow();//add a new row to the table
+		   //put the fields of chemical into the table
+		   editTable.setValueAt(equipment.item_Name, row, 1);
+		   editTable.setValueAt(equipment.product_Code, row, 2);
+		   editTable.setValueAt(equipment.cupboard_Number, row,4);
+		   editTable.setValueAt(equipment.quantity, row, 3);
+		   editTable.setValueAt(equipment.room, row, 5);
+		   editTable.setValueAt(equipment.hazard_Warning,row,6);
+		   
+		   
+		   }
+		   }
+		   }
+	}
+	  
+ }
+	   
+//  end of method
+
+public void requestItem() {
+	
 	   int itemRequiredQuantity;
 	   boolean confirm = false;
 	   
@@ -159,19 +188,17 @@ public void addEquipment (){
 	  
 	  itemQuantity = itemQuantity - itemRequiredQuantity; // the operation used to take away the requested item from the actual item quantity
 	  
-	   
-	   
+	  
    }//  end of method
 
-
-   public void searchItem() {
+// end of method 
+   
+public void searchItem() {
 	   
-	
-	   
+	  
 	 PC_Table searchTable = new PC_Table("Search Table", 0, "Item Quantity, Item Name, ID, Item Hazard, Item Location ","OK");
 	// JScrollPane searchTableScroll = new JScrollPane (searchTable);
 	 searchTable.setSize(1500, 1000);
-	 searchTable.add(new JScrollPane());
 	 
 	 
 	 Chemical chemical = new Chemical (science_AutomationStyle);
@@ -184,21 +211,21 @@ public void addEquipment (){
 	   Object[] determineTable = {chemicalOption, equipmentOption}; // objects for choice between chemical and equipment tables
 	   
 	   
-	   int searchBy = JOptionPane.showOptionDialog(null, "What would you like to search by?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, searchOptions, searchOptions[0]);
-	   int choice = JOptionPane.showOptionDialog(null, "Which database do you want to seach?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
-		
+	   int searchBy = JOptionPane.showOptionDialog(null,"What would you like to search by?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, searchOptions, searchOptions[0]);
+	   int choice = JOptionPane.showOptionDialog(null,"Which database do you want to search?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
+	   
 	   
 	   if ((searchBy & choice) != -1){
 		
 			System.out.println("Search choice: " + searchBy);
 			System.out.println("Table Searched: " + choice );
-			
-		}
+		
+	   }
 	   if ( choice == -1  ) {
-			JOptionPane.showMessageDialog(null, "Please select search criteria", "Error Message", 2, null);
+			JOptionPane.showMessageDialog(null, "Error - select search criteria", "Error Message", 1, null);
 			
 		} else if (searchBy == -1 ) {
-			JOptionPane.showMessageDialog(null, "Please select search criteria", "Error Message", 2, null);
+			JOptionPane.showMessageDialog(null, "Error - select search criteria", "Error Message", 1, null);
 		}
 	   if ((searchBy == 0 ) & (choice == 0 )) {
 			String chemicalSearchName = JOptionPane.showInputDialog(null, "Chemical Name", "Search By Name", 1);
@@ -274,7 +301,7 @@ public void addEquipment (){
 			int row = 0;
 			   equipmentFile.resetSerialAccess();// prepare the file for serial access
 			   while (equipmentFile.moreSerialRecords()) {//loop for each quotation in the file
-				   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read Equipment
+				   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read chemical
 			   if (equipment.item_Name.contains(equipmentSearchName)) { //if the surname matches
 			   searchTable.addRow();//add a new row to the table
 			   //put the fields of chemical into the table
@@ -293,13 +320,13 @@ public void addEquipment (){
 		}
 	   
 	   if ((searchBy == 1 ) & (choice == 1 )) {
-			String equipmentID = JOptionPane.showInputDialog(null, "Equipment Number", "Search By Number", 1);
+			String equipmentID = JOptionPane.showInputDialog(null, "Equipment ID", "Search By ID Number", 1);
 			System.out.println(equipmentID);
 			
 			int row = 0;
 			   equipmentFile.resetSerialAccess();// prepare the file for serial access
 			   while (equipmentFile.moreSerialRecords()) {//loop for each quotation in the file
-				   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read Equipment
+				   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read chemical
 			   if (equipment.product_Code.contains(equipmentID)) { //if the surname matches
 			   searchTable.addRow();//add a new row to the table
 			   //put the fields of chemical into the table
@@ -322,7 +349,7 @@ public void addEquipment (){
 			int row = 0;
 			   equipmentFile.resetSerialAccess();// prepare the file for serial access
 			   while (equipmentFile.moreSerialRecords()) {//loop for each quotation in the file
-			   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read Equipment
+			   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read chemical
 			   if ((equipment.cupboard_Number.contains(equipmentLocation) | equipment.room.contains(equipmentLocation))) { //if the surname matches
 			   searchTable.addRow();//add a new row to the table
 			   //put the fields of chemical into the table
@@ -342,10 +369,11 @@ public void addEquipment (){
 
 	   
    }
-//  end of method
+// end of method
 
 
-   public void itemHazardReport() {
+public void itemHazardReport() {
+
 	/*   
 	   String printreport = new String("printreport");
 	  
@@ -364,40 +392,30 @@ public void addEquipment (){
 	   
 	   
    }//  end of method
+
+   // end of method 
    
-   public void phLevel() {
+public void phLevel() {
 	   
-   }//  end of method
+   }
 
+   //  end of method
 
-   public void availableStock() {
+public void availableStock() {
 	   
-	   
-	   PC_Table availableTable = new PC_Table("Search Table", 0, "Item Quantity, Item Name, ID, Item Hazard, Item Location ","OK");
-			// JScrollPane searchTableScroll = new JScrollPane (searchTable);
-	   availableTable.setSize(1500, 1000);
-	   availableTable.add(new JScrollPane());
-			 
-			 
-			 Chemical chemical = new Chemical (science_AutomationStyle);
-			 
-			 Equipment equipment = new Equipment (science_AutomationStyle);
-			 
-			 
 	 
 	   
 	   
 	   
-   }//  end of method
-
-
-
+   }
+   
+   //  end of method
 
 
 	//*sets the style to be used by menus windows etc*/
 	
 	
-	void setStyle(PC_Style style){
+void setStyle(PC_Style style){
         //menu styles
         style.setBackgroundColour(null);
         style.setMenuBackgroundColour(null);
@@ -455,9 +473,7 @@ public void addEquipment (){
         style.setWindowTitleForegroundColour(null);
         style.setWindowTitlePicture("");
         
-        
     }
-
 
 
 
