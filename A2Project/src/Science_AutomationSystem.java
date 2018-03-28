@@ -86,6 +86,8 @@ public void addEquipment (){
 
    public void editItem() {
 	   
+	   PC_Table editTable = new PC_Table("Edit Table", 0, "Item Quantity, Item Name, ID, Item Hazard, Item Location ","OK");
+	   
 	  boolean chemicalChoice;
 	  boolean equipmentChoice;
 	  
@@ -99,6 +101,8 @@ public void addEquipment (){
 	  
 	  if (chemicalChoice == true & equipmentChoice == false){
 		  // output the chemical table and edit the item
+		  
+		  
 	  }
 	  else if (chemicalChoice == false & equipmentChoice == true){
 		  // output the equipment table and edit the item
@@ -135,10 +139,12 @@ public void addEquipment (){
 
    public void searchItem() {
 	   
-	  
+	
+	   
 	 PC_Table searchTable = new PC_Table("Search Table", 0, "Item Quantity, Item Name, ID, Item Hazard, Item Location ","OK");
 	// JScrollPane searchTableScroll = new JScrollPane (searchTable);
 	 searchTable.setSize(1500, 1000);
+	 searchTable.add(new JScrollPane());
 	 
 	 
 	 Chemical chemical = new Chemical (science_AutomationStyle);
@@ -162,10 +168,10 @@ public void addEquipment (){
 			
 		}
 	   if ( choice == -1  ) {
-			JOptionPane.showMessageDialog(null, "Error - select search criteria", "Error Message", 1, null);
+			JOptionPane.showMessageDialog(null, "Please select search criteria", "Error Message", 2, null);
 			
 		} else if (searchBy == -1 ) {
-			JOptionPane.showMessageDialog(null, "Error - select search criteria", "Error Message", 1, null);
+			JOptionPane.showMessageDialog(null, "Please select search criteria", "Error Message", 2, null);
 		}
 	   if ((searchBy == 0 ) & (choice == 0 )) {
 			String chemicalSearchName = JOptionPane.showInputDialog(null, "Chemical Name", "Search By Name", 1);
