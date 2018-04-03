@@ -5,6 +5,9 @@ import java.util.Arrays;
 import park.*;
 import javax.swing.*;
 import java.util.Scanner;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class Science_AutomationSystem {
 
@@ -25,6 +28,9 @@ String itemLocation = "Item Location";
 String chemicalOption = "Chemical";
 String equipmentOption = "Equipment";
 String cancel = "Cancel";
+
+PC_Date currentDate = new PC_Date();
+PC_Date orderDate = new PC_Date();
 
 
 HashFile itemsFile = new HashFile(ItemsFile, 100, new Items());
@@ -180,13 +186,20 @@ public void requestItem() {
 	   int itemRequiredQuantity;
 	   boolean confirm = false;
 	   
+	   
+	   
 	   PC_Dialog RequestItem = new PC_Dialog ("Item Quantity", "Quantity Needed, Date for Use+, Period for Use", "Confirm , Cancel");
 	   RequestItem.choice();
 	   
-	  itemRequiredQuantity = RequestItem.getFieldInt(1);
-	  periodUse = RequestItem.getFieldInt(3);
+	   itemRequiredQuantity = RequestItem.getFieldInt(1);
+	   orderDate = RequestItem.getFieldDate(2);
+	   periodUse = RequestItem.getFieldInt(3);
+	   
+	   
+	   
+	   
 	  
-	  itemQuantity = itemQuantity - itemRequiredQuantity; // the operation used to take away the requested item from the actual item quantity
+	//  itemQuantity = itemQuantity - itemRequiredQuantity; // the operation used to take away the requested item from the actual item quantity
 	  
 	  
    }//  end of method
