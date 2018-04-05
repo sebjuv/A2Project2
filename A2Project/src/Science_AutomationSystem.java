@@ -9,15 +9,25 @@ import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+ 
 public class Science_AutomationSystem {
+	
+	public class dateFile{
+		 
+
+		 dateFile storeDates = new dateFile();
+		} 
+
+	
+	
 
    //  CLASS VARIABLES
-   PC_Style science_AutomationStyle = new PC_Style();//  holds the style for the user interface
+ PC_Style science_AutomationStyle = new PC_Style();//  holds the style for the user interface
  public static int chemicalIDnumber;
  public static int equipmentIDnumber;
  public static int itemQuantity;
  public static int periodUse;
- public boolean isSelected;
+ public boolean isSelected; 
  
 String ChemicalFile = "datafiles/Chemical.dat";
 String EquipmentFile = "datafiles/Equipment.dat";
@@ -194,6 +204,8 @@ public void requestItem() {
 	   itemRequiredQuantity = RequestItem.getFieldInt(1);
 	   orderDate = RequestItem.getFieldDate(2);
 	   periodUse = RequestItem.getFieldInt(3);
+	   
+	   System.out.println(orderDate);
 	   
 	   
 	   
