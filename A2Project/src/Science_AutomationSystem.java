@@ -76,8 +76,8 @@ private void windowClosing(java.awt.event.WindowEvent evt) {
       }//  end of method
 }
   
-	   
-	  
+
+
 public void addChemical (){
 	
 	Chemical chemical = new Chemical (science_AutomationStyle);
@@ -191,12 +191,16 @@ public void editItem() {
 	   
 //  end of method
 
-public void requestItem() {
+public void requestItem() { // ignore dates and just take the item request quantity from the initial quantity.
 	
 	   int itemRequiredQuantity;
 	   boolean confirm = false;
 	   
+	   // user needs to first select an item:
 	   
+	   
+	   
+	   //user then needs to decide how much they are taking out of the given item: 
 	   
 	   PC_Dialog RequestItem = new PC_Dialog ("Item Quantity", "Quantity Needed, Date for Use+, Period for Use", "Confirm , Cancel");
 	   RequestItem.choice();
@@ -205,8 +209,11 @@ public void requestItem() {
 	   orderDate = RequestItem.getFieldDate(2);
 	   periodUse = RequestItem.getFieldInt(3);
 	   
+	   System.out.println(java.time.LocalDate.now()); 
 	   System.out.println(orderDate);
-	   
+	   System.out.println(periodUse);
+	   System.out.println(itemRequiredQuantity);
+	  
 	   
 	   
 	   
@@ -224,6 +231,8 @@ public void searchItem() {
 	 PC_Table searchTable = new PC_Table("Search Table", 0, "Item Quantity, Item Name, ID, Item Hazard, Item Location ","OK");
 	// JScrollPane searchTableScroll = new JScrollPane (searchTable);
 	 searchTable.setSize(1500, 1000);
+	 searchTable.getScrollPane();
+	 
 	 
 	 
 	 Chemical chemical = new Chemical (science_AutomationStyle);
@@ -265,8 +274,8 @@ public void searchItem() {
 			   //put the fields of chemical into the table
 			   searchTable.setValueAt(chemical.reactant_Name, row, 1);
 			   searchTable.setValueAt(chemical.reference_Code, row, 2);
-			   searchTable.setValueAt(chemical.location, row,4);
 			   searchTable.setValueAt(chemical.quantity, row, 3);
+			   searchTable.setValueAt(chemical.location, row,4);
 			   searchTable.setValueAt(chemical.hazard_Type, row, 5);
 			   
 			   row++; // add one to row
@@ -288,8 +297,8 @@ public void searchItem() {
 			   //put the fields of chemical into the table
 			   searchTable.setValueAt(chemical.reactant_Name, row, 1);
 			   searchTable.setValueAt(chemical.reference_Code, row, 2);
-			   searchTable.setValueAt(chemical.location, row,4);
 			   searchTable.setValueAt(chemical.quantity, row, 3);
+			   searchTable.setValueAt(chemical.location, row,4);
 			   searchTable.setValueAt(chemical.hazard_Type, row, 5);
 			   
 			   row++; // add one to row
@@ -309,8 +318,8 @@ public void searchItem() {
 			   //put the fields of chemical into the table
 			   searchTable.setValueAt(chemical.reactant_Name, row, 1);
 			   searchTable.setValueAt(chemical.reference_Code, row, 2);
-			   searchTable.setValueAt(chemical.location, row,4);
 			   searchTable.setValueAt(chemical.quantity, row, 3);
+			   searchTable.setValueAt(chemical.location, row,4);
 			   searchTable.setValueAt(chemical.hazard_Type, row, 5);
 			   
 			   row++; // add one to row
@@ -332,8 +341,8 @@ public void searchItem() {
 			   //put the fields of chemical into the table
 			   searchTable.setValueAt(equipment.item_Name, row, 1);
 			   searchTable.setValueAt(equipment.product_Code, row, 2);
-			   searchTable.setValueAt(equipment.cupboard_Number, row,4);
 			   searchTable.setValueAt(equipment.quantity, row, 3);
+			   searchTable.setValueAt(equipment.cupboard_Number, row,4);
 			   searchTable.setValueAt(equipment.room, row, 5);
 			   searchTable.setValueAt(equipment.hazard_Warning,row,6);
 			   
@@ -357,8 +366,8 @@ public void searchItem() {
 			   //put the fields of chemical into the table
 			   searchTable.setValueAt(equipment.item_Name, row, 1);
 			   searchTable.setValueAt(equipment.product_Code, row, 2);
-			   searchTable.setValueAt(equipment.cupboard_Number, row,4);
 			   searchTable.setValueAt(equipment.quantity, row, 3);
+			   searchTable.setValueAt(equipment.cupboard_Number, row,4);
 			   searchTable.setValueAt(equipment.room, row, 5);
 			   searchTable.setValueAt(equipment.hazard_Warning,row,6);
 			   
@@ -380,8 +389,8 @@ public void searchItem() {
 			   //put the fields of chemical into the table
 			   searchTable.setValueAt(equipment.item_Name, row, 1);
 			   searchTable.setValueAt(equipment.product_Code, row, 2);
-			   searchTable.setValueAt(equipment.cupboard_Number, row,4);
 			   searchTable.setValueAt(equipment.quantity, row, 3);
+			   searchTable.setValueAt(equipment.cupboard_Number, row,4);
 			   searchTable.setValueAt(equipment.room, row, 5);
 			   searchTable.setValueAt(equipment.hazard_Warning,row,6);
 			   
