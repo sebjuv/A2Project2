@@ -34,7 +34,7 @@ String EquipmentFile = "datafiles/Equipment.dat";
 String ItemsFile = "datafiles/Items.dat";
 String itemName = "Item Name";
 String itemNumber = "Item Number";
-String itemLocation = "Item Location";
+String itemLocation = "Item Location/ Cupboard Number";
 String chemicalOption = "Chemical";
 String equipmentOption = "Equipment";
 String cancel = "Cancel";
@@ -98,15 +98,15 @@ public void addEquipment (){
 public void addItem() {
 		
 		
-		
 	}
 //  end of method
 
 
 public void editItem() {
 	
-	PC_Table editTable = new PC_Table("Search Table", 0, "Item Quantity, Item Name, ID, Item Hazard, Item Location ","OK");
+	PC_Table editTable = new PC_Table("Search Table", 0, "Item Quantity, Item Name, ID, Item Hazard, Item Location/ Cupboard Number ","OK");
 		editTable.setSize(1500, 1000);
+		
 	
 	Chemical chemical = new Chemical (science_AutomationStyle);
 	 
@@ -114,8 +114,8 @@ public void editItem() {
 	
 	Object[] determineTable = {chemicalOption, equipmentOption}; // objects for choice between chemical and equipment tables
 	   
-	int choice = JOptionPane.showOptionDialog(null, "Which database do you want to search?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
-		
+	int choice = JOptionPane.showOptionDialog(null, "Which database do you want to edit?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
+	
 	
 	
 	
@@ -155,15 +155,16 @@ public void editItem() {
 		   }
 		   editTable.choice();//display the table
 		   editTable.setSize(1920, 1080);
+		   editTable.editCellAt(1, 1);
 		}
 		}
 	
 	if ( choice == 1 ) {
-		String userInput = JOptionPane.showInputDialog(null, "Equipment Location", "Search By Location Name", 1);
+		String userInput = JOptionPane.showInputDialog(null, "Input an ID number or a Equipment Name:", "Search Equipment ID or Equipment Location", 1);
 		System.out.println(userInput);
 		
 		if (userInput == null) {
-			JOptionPane.showMessageDialog(null, "Pleaase select a search criteria", "Error Message", 1, null);
+			JOptionPane.showMessageDialog(null, "Please select a search criteria", "Error Message", 1, null);
 			
 			
 		}else{
@@ -184,6 +185,8 @@ public void editItem() {
 		   
 		   }
 		   }
+		   editTable.choice();
+		   editTable.setSize(1920,1080);
 		   }
 	}
 	  
@@ -198,19 +201,19 @@ public void requestItem() { // ignore dates and just take the item request quant
 	   
 	   // user needs to first select an item:
 	   
-	   
+	   PC_Table itemRequestTable = new PC_Table ("Item Request Table", 0 , "Item Quantity, Item Name, ID, Item Hazard, Item Location/ Cupboard Number ", "OK");
+	   itemRequestTable.fullScreen();
 	   
 	   //user then needs to decide how much they are taking out of the given item: 
 	   
-	   PC_Dialog RequestItem = new PC_Dialog ("Item Quantity", "Quantity Needed, Date for Use+, Period for Use", "Confirm , Cancel");
+	   PC_Dialog RequestItem = new PC_Dialog ("Item Quantity", "Quantity Needed, Period for Use", "Confirm , Cancel");
 	   RequestItem.choice();
 	   
 	   itemRequiredQuantity = RequestItem.getFieldInt(1);
-	   orderDate = RequestItem.getFieldDate(2);
+	  
 	   periodUse = RequestItem.getFieldInt(3);
 	   
 	   System.out.println(java.time.LocalDate.now()); 
-	   System.out.println(orderDate);
 	   System.out.println(periodUse);
 	   System.out.println(itemRequiredQuantity);
 	  
@@ -228,7 +231,7 @@ public void requestItem() { // ignore dates and just take the item request quant
 public void searchItem() {
 	   
 	  
-	 PC_Table searchTable = new PC_Table("Search Table", 0, "Item Quantity, Item Name, ID, Item Hazard, Item Location ","OK");
+	 PC_Table searchTable = new PC_Table("Search Table", 0, "Item Quantity, Item Name, ID, Item Hazard, Item Location/ Cupboard Number ","OK");
 	// JScrollPane searchTableScroll = new JScrollPane (searchTable);
 	 searchTable.setSize(1500, 1000);
 	 searchTable.getScrollPane();
