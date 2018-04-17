@@ -67,7 +67,6 @@ private void windowClosing(java.awt.event.WindowEvent evt) {
       }//  end of method
 }
 
-
 public void addChemical (){
 	
 	Chemical chemical = new Chemical (science_AutomationStyle);
@@ -89,8 +88,8 @@ public void addItem() {
 		
 		
 	}
-//  end of method
 
+//  end of method
 
 public void editItem() {
 	
@@ -187,7 +186,7 @@ public void editItem() {
 		   }
 		   editTable.choice();
 		   editTable.setSize(1920,1080);
-		   int equipmentIDNumber = editTable.getIntValueAt(editTable.getSelectedRow() , 1);
+		   String equipmentIDNumber = editTable.getValueAt(editTable.getSelectedRow() , 1);
 		   equipment = (Equipment) equipmentFile.retrieve(equipmentIDNumber);
 		   if (equipment != null){
 			   equipment.edit();
@@ -206,31 +205,143 @@ public void editItem() {
 
 public void requestItem() { // ignore dates and just take the item request quantity from the initial quantity.
 	
-	   int itemRequiredQuantity;
-	   boolean confirm = false;
+	PC_Table requestTable = new PC_Table("Search Table", 0, " Item Name, ID ,Item Quantity# ,Hazard Warning#, Item Hazard, Item Location/Cupboard Number, Room","OK");
+	requestTable.setSize(1500, 1000);
+		
+		
+	
+	Chemical chemical = new Chemical (science_AutomationStyle);
+	 
+	Equipment equipment = new Equipment (science_AutomationStyle);
+	
+	Object[] determineTable = {chemicalOption, equipmentOption}; // objects for choice between chemical and equipment tables
 	   
-	   // user needs to first select an item:
+	int choice = JOptionPane.showOptionDialog(null, "Which database are you making an order from?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
+	
+	
+	
+	
+	
+	if ( choice == -1  ) {
+		JOptionPane.showMessageDialog(null, "Error - select search criteria", "Error Message", 1, null);
+		
+	}
+	if ( choice == 0 ) {
+		
+		String userInput = JOptionPane.showInputDialog(null, "Input an ID number or a Reactant Name to narrow down your search:", "Search By ID Number or Reactant Name", 1);
+		System.out.println(userInput);
+		
+		if (userInput == null) {
+			JOptionPane.showMessageDialog(null, "Please select a search criteria", "Error Message", 1, null);
+			
+			
+		}else
+		
+		{
+		
+		int row = 0;
+		   chemicalFile.resetSerialAccess();// prepare the file for serial access
+		   while (chemicalFile.moreSerialRecords()) {//loop for each Chemical in the file
+		   chemical = (Chemical) chemicalFile.getNextSerialValue(); // read chemical
+		   if ((chemical.reference_Code.contains(userInput))|(chemical.reactant_Name.contains(userInput))) { //if the Inputed values match
+			   requestTable.addRow();//add a new row to the table
+		   //put the fields of chemical into the table
+			   requestTable.setValueAt(chemical.reactant_Name, row, 0);
+			   requestTable.setValueAt(chemical.reference_Code, row, 1);
+			   requestTable.setValueAt(chemical.quantity, row, 2);
+			   requestTable.setValueAt(chemical.hazard_Type, row, 4);
+			   requestTable.setValueAt(chemical.location, row,5);
+		   
+		   row++; // add one to row
+		   }
+		   }
+		   requestTable.choice();//display the table
+		   int chemicalQuantity = requestTable.getIntValueAt(requestTable.getSelectedRow(), 2);
+		   chemical = (Chemical) chemicalFile.retrieve(chemicalQuantity);
+		   
+		   if (chemical != null){
+			   
+		   PC_Dialog requestChemical = new PC_Dialog("Order", "Chemical ID, Chemical Name, Quantity Required, Period Needed", "Confirm Order, Cancel");
+		   requestChemical.setField(0, 101);
+		   chemicalFile.store(chemical);
+		   
+		   }else
+			   JOptionPane.showMessageDialog(null, "Error - Unable to find Item");
+		   if (row > 0){
+			   
+		   }else JOptionPane.showMessageDialog(null, "Error - No matching item");
+		   
+		   /*
+		   requestTable.setSize(1920, 1080);
+		   String chemicalIDNumber = requestTable.getValueAt(requestTable.getSelectedRow() , 1);
+		   chemical = (Chemical) chemicalFile.retrieve(chemicalIDNumber);
+		   if (chemical != null){
+			   chemical.edit();
+			   chemicalFile.store(chemical);
+		   }else
+			   JOptionPane.showMessageDialog(null, "Error - Unable to find Item");
+		   if (row > 0){
+			   
+		   }else JOptionPane.showMessageDialog(null, "Error - No matching item");
+		   */		   
+		   
+		}
+		}
+		
+	
+	if ( choice == 1 ) {
+		String userInput = JOptionPane.showInputDialog(null, "Input an ID number or a Equipment Name to narrow down your search:", "Search Equipment ID or Equipment Location", 1);
+		System.out.println(userInput);
+		
+		if (userInput == null) {
+			JOptionPane.showMessageDialog(null, "Please select a search criteria", "Error Message", 1, null);
+			
+			
+		}else{
+		int row = 0;
+		   equipmentFile.resetSerialAccess();// prepare the file for serial access
+		   while (equipmentFile.moreSerialRecords()) {//loop for each Equipment in the file
+		   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read chemical
+		   if ((equipment.cupboard_Number.contains(userInput) | equipment.room.contains(userInput))) { //if the surname matches
+			   requestTable.addRow();//add a new row to the table
+		   //put the fields of chemical into the table
+			   requestTable.setValueAt(equipment.item_Name, row, 0);
+			   requestTable.setValueAt(equipment.product_Code, row, 1);
+			   requestTable.setValueAt(equipment.quantity, row, 2);
+			   requestTable.setValueAt(equipment.cupboard_Number, row,5);
+			   requestTable.setValueAt(equipment.room, row, 6);
+		   
+		   
+		   }
+		   }
+		  
+		   requestTable.choice();
+		   /*
+		   requestTable.setSize(1920,1080);
+		   String equipmentIDNumber = requestTable.getValueAt(requestTable.getSelectedRow() , 1);
+		   equipment = (Equipment) equipmentFile.retrieve(equipmentIDNumber);
+		   if (equipment != null){
+			   equipment.edit();
+			   equipmentFile.store(equipment);
+		   }else
+			   JOptionPane.showMessageDialog(null, "Error - Unable to find Item");
+		   if (row > 0){
+			   
+		   }else JOptionPane.showMessageDialog(null, "Error - No matching item");
+		   */
+		   
+	}
+	  
+ } 
 	   
-	   PC_Table itemRequestTable = new PC_Table ("Item Request Table", 0 , "Item Name, ID ,Item Quantity# , Item Location/Cupboard Number, Hazard Warning#, Item Hazard, Room", "OK");
-	   itemRequestTable.fullScreen();
-	   itemRequestTable.addFieldActionItemListener(1, itemRequestTable);
 	   
-	   //user then needs to decide how much they are taking out of the given item: 
-	   
-	   PC_Dialog RequestItem = new PC_Dialog ("Item Quantity", "Quantity Needed, Period for Use", "Confirm , Cancel");
-	   RequestItem.choice();
-	   
-	   itemRequiredQuantity = RequestItem.getFieldInt(1);
-	   periodUse = RequestItem.getFieldInt(2);
-
-	   System.out.println(itemRequiredQuantity);
-	   System.out.println(periodUse);
 	  	   
 	  
 	//  itemQuantity = itemQuantity - itemRequiredQuantity; // the operation used to take away the requested item from the actual item quantity
 	  
 	  
-   }//  end of method
+ }//  end of method
+
 // end of method 
    
 public void searchItem() {
@@ -397,23 +508,24 @@ public void searchItem() {
 
 	   
    }
+
 // end of method
 
 
 public void itemHazardReport() {
 
-	/*   
+	   /*
 	   String printreport = new String("printreport");
 	  
 	  
-	   printhazard paper = new printhazard();
+	   paper printHazard = new printHazard();
 	  
 	   
 	   paper.setOrientation(printhazard.PORTRAIT_ORIENTATION);
 	   display();
 	   PC_Paper();
-	   
 	   */
+	   
 	   
 	   
 	   
@@ -421,7 +533,7 @@ public void itemHazardReport() {
 	   
    }//  end of method
 
-   // end of method 
+// end of method 
    
 public void phLevel() {
 	Chemical chemical = new Chemical(science_AutomationStyle);
@@ -433,7 +545,7 @@ public void phLevel() {
 	   chemicalFile.resetSerialAccess();// prepare the file for serial access
 	   while (chemicalFile.moreSerialRecords()) {//loop for each chemical in the file
 	   chemical = (Chemical) chemicalFile.getNextSerialValue(); // read chemical
-	   
+	   if (chemical.pH_level > 0){
 	   pHLevel.addRow();//add a new row to the table
 	   //put the fields of chemical into the table
 	   pHLevel.setValueAt(chemical.pH_level, row, 0);
@@ -445,16 +557,14 @@ public void phLevel() {
 	   
 	   
 	   row++; // add one to row
-	   
+	   }
 	   }
 	   pHLevel.choice();//display the table
 	
 	
    }
 
-
-
-   //  end of method
+//  end of method
 
 public void availableStock() {
 	   
@@ -522,11 +632,9 @@ public void availableStock() {
 	   
    }
    
-   //  end of method
+//  end of method
 
-
-	//*sets the style to be used by menus windows etc*/
-	
+//*sets the style to be used by menus windows etc*/	
 	
 void setStyle(PC_Style style){
         //menu styles
