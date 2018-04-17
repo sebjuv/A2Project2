@@ -146,9 +146,19 @@ public void editItem() {
 		   }
 		   editTable.choice();//display the table
 		   editTable.setSize(1920, 1080);
-		   editTable.editCellAt(1, 1);
+		   String chemicalIDNumber = editTable.getValueAt(editTable.getSelectedRow() , 1);
+		   chemical = (Chemical) chemicalFile.retrieve(chemicalIDNumber);
+		   if (chemical != null){
+			   chemical.edit();
+			   chemicalFile.store(chemical);
+		   }else
+			   JOptionPane.showMessageDialog(null, "Error - Unable to find Item");
+		   if (row > 0){
+			   
+		   }else JOptionPane.showMessageDialog(null, "Error - No matching item");
+		   }
 		}
-		}
+		
 	
 	if ( choice == 1 ) {
 		String userInput = JOptionPane.showInputDialog(null, "Input an ID number or a Equipment Name to narrow down your search:", "Search Equipment ID or Equipment Location", 1);
@@ -177,6 +187,16 @@ public void editItem() {
 		   }
 		   editTable.choice();
 		   editTable.setSize(1920,1080);
+		   int equipmentIDNumber = editTable.getIntValueAt(editTable.getSelectedRow() , 1);
+		   equipment = (Equipment) equipmentFile.retrieve(equipmentIDNumber);
+		   if (equipment != null){
+			   equipment.edit();
+			   equipmentFile.store(equipment);
+		   }else
+			   JOptionPane.showMessageDialog(null, "Error - Unable to find Item");
+		   if (row > 0){
+			   
+		   }else JOptionPane.showMessageDialog(null, "Error - No matching item");
 		   }
 	}
 	  
