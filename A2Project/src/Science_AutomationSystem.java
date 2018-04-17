@@ -66,7 +66,6 @@ private void windowClosing(java.awt.event.WindowEvent evt) {
     	     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
       }//  end of method
 }
-  
 
 
 public void addChemical (){
@@ -192,7 +191,7 @@ public void requestItem() { // ignore dates and just take the item request quant
 	   
 	   // user needs to first select an item:
 	   
-	   PC_Table itemRequestTable = new PC_Table ("Item Request Table", 0 , "Item Quantity#, Item Name, ID, Item Hazard*, Item Location/Cupboard Number ", "OK");
+	   PC_Table itemRequestTable = new PC_Table ("Item Request Table", 0 , "Item Name, ID ,Item Quantity# , Item Location/Cupboard Number, Hazard Warning#, Item Hazard, Room", "OK");
 	   itemRequestTable.fullScreen();
 	   
 	   //user then needs to decide how much they are taking out of the given item: 
@@ -216,13 +215,12 @@ public void requestItem() { // ignore dates and just take the item request quant
 	  
 	  
    }//  end of method
-
 // end of method 
    
 public void searchItem() {
 	   
 	  
-	 PC_Table searchTable = new PC_Table("Search Table", 0, " Item Name, ID ,Item Quantity# , Item Location/Cupboard Number, Hazard Warning#, Item Hazard, Room","OK");
+	 PC_Table searchTable = new PC_Table("Search Table", 0, " Item Name, ID ,Item Quantity# ,Hazard Warning#, Item Hazard, Item Location/Cupboard Number, Room","OK");
 	// JScrollPane searchTableScroll = new JScrollPane (searchTable);
 	 searchTable.setSize(1500, 1000);
 	 searchTable.getScrollPane();
@@ -261,8 +259,8 @@ public void searchItem() {
 			   searchTable.setValueAt(chemical.reactant_Name, row, 0);
 			   searchTable.setValueAt(chemical.reference_Code, row, 1);
 			   searchTable.setValueAt(chemical.quantity, row, 2);
-			   searchTable.setValueAt(chemical.location, row,3);
-			   searchTable.setValueAt(chemical.hazard_Type, row, 5);
+			   searchTable.setValueAt(chemical.hazard_Type, row, 4);
+			   searchTable.setValueAt(chemical.location, row,5);
 			   
 			   row++; // add one to row
 			   }
@@ -284,8 +282,8 @@ public void searchItem() {
 			   searchTable.setValueAt(chemical.reactant_Name, row, 0);
 			   searchTable.setValueAt(chemical.reference_Code, row, 1);
 			   searchTable.setValueAt(chemical.quantity, row, 2);
-			   searchTable.setValueAt(chemical.location, row,3);
-			   searchTable.setValueAt(chemical.hazard_Type, row,5);
+			   searchTable.setValueAt(chemical.hazard_Type, row, 4);
+			   searchTable.setValueAt(chemical.location, row,5);
 			   
 			   row++; // add one to row
 			   }
@@ -304,8 +302,8 @@ public void searchItem() {
 			   searchTable.setValueAt(chemical.reactant_Name, row, 0);
 			   searchTable.setValueAt(chemical.reference_Code, row, 1);
 			   searchTable.setValueAt(chemical.quantity, row, 2);
-			   searchTable.setValueAt(chemical.location, row,3);
-			   searchTable.setValueAt(chemical.hazard_Type, row, 5);
+			   searchTable.setValueAt(chemical.hazard_Type, row, 4);
+			   searchTable.setValueAt(chemical.location, row,6);
 			   
 			   row++; // add one to row
 			   }
@@ -326,8 +324,7 @@ public void searchItem() {
 			   searchTable.setValueAt(equipment.item_Name, row, 0);
 			   searchTable.setValueAt(equipment.product_Code, row, 1);
 			   searchTable.setValueAt(equipment.quantity, row, 2);
-			   searchTable.setValueAt(equipment.cupboard_Number, row,3);
-			   searchTable.setValueAt(equipment.hazard_Warning,row,4);
+			   searchTable.setValueAt(equipment.cupboard_Number, row,5);
 			   searchTable.setValueAt(equipment.room, row, 6);
 			   
 			   
@@ -351,8 +348,7 @@ public void searchItem() {
 			   searchTable.setValueAt(equipment.item_Name, row, 0);
 			   searchTable.setValueAt(equipment.product_Code, row, 1);
 			   searchTable.setValueAt(equipment.quantity, row, 2);
-			   searchTable.setValueAt(equipment.cupboard_Number, row,3);
-			   searchTable.setValueAt(equipment.hazard_Warning,row,4);
+			   searchTable.setValueAt(equipment.cupboard_Number, row,5);
 			   searchTable.setValueAt(equipment.room, row, 6);
 			   
 			   row++; // add one to row
@@ -373,8 +369,7 @@ public void searchItem() {
 			   searchTable.setValueAt(equipment.item_Name, row, 0);
 			   searchTable.setValueAt(equipment.product_Code, row, 1);
 			   searchTable.setValueAt(equipment.quantity, row, 2);
-			   searchTable.setValueAt(equipment.cupboard_Number, row,3);
-			   searchTable.setValueAt(equipment.hazard_Warning,row,4);
+			   searchTable.setValueAt(equipment.cupboard_Number, row,5);
 			   searchTable.setValueAt(equipment.room, row, 6);
 			   
 			   row++; // add one to row
@@ -416,7 +411,7 @@ public void phLevel() {
 	Chemical chemical = new Chemical(science_AutomationStyle);
 	
 	PC_Table pHLevel = new PC_Table("Search Table", 0, "pH Level#, Hazard Type, Item Name, Item ID, Item Quantity#, Item Location/Cupboard Number ","OK");
-	pHLevel.sortNumeric(0, false);
+	pHLevel.sortNumeric(0, true);
 	
 	int row = 0;
 	   chemicalFile.resetSerialAccess();// prepare the file for serial access
@@ -425,12 +420,12 @@ public void phLevel() {
 	   
 	   pHLevel.addRow();//add a new row to the table
 	   //put the fields of chemical into the table
-	   pHLevel.setValueAt(chemical.pH_level, row, 1);
-	   pHLevel.setValueAt(chemical.hazard_Type, row, 2);
-	   pHLevel.setValueAt(chemical.reactant_Name, row, 3);
-	   pHLevel.setValueAt(chemical.reference_Code, row, 4);
-	   pHLevel.setValueAt(chemical.quantity, row, 5);
-	   pHLevel.setValueAt(chemical.location, row,6);
+	   pHLevel.setValueAt(chemical.pH_level, row, 0);
+	   pHLevel.setValueAt(chemical.hazard_Type, row, 1);
+	   pHLevel.setValueAt(chemical.reactant_Name, row, 2);
+	   pHLevel.setValueAt(chemical.reference_Code, row, 3);
+	   pHLevel.setValueAt(chemical.quantity, row, 4);
+	   pHLevel.setValueAt(chemical.location, row,5);
 	   
 	   
 	   row++; // add one to row
@@ -450,7 +445,7 @@ public void availableStock() {
 	Chemical chemical = new Chemical (science_AutomationStyle);
 	Equipment equipment = new Equipment (science_AutomationStyle);
 	
-	PC_Table equipmentStock = new PC_Table ("All Stock", 0, "Item Quantity#, Item Name, ID, Item Hazard*, Item Location/Cupboard Number ","OK");
+	PC_Table equipmentStock = new PC_Table ("All Stock", 0, "Item Name, ID ,Item Quantity# , Item Location/Cupboard Number, Item Hazard","OK");
 	
 	Object[] determineTable = {chemicalOption, equipmentOption}; // objects for choice between chemical and equipment tables
 	
@@ -472,11 +467,11 @@ public void availableStock() {
 			   
 			equipmentStock.addRow();//add a new row to the table
 			   //put the fields of chemical into the table
-			equipmentStock.setValueAt(chemical.reactant_Name, row, 1);
-			equipmentStock.setValueAt(chemical.reference_Code, row, 2);
-			equipmentStock.setValueAt(chemical.quantity, row, 3);
-			equipmentStock.setValueAt(chemical.location, row,4);
-			equipmentStock.setValueAt(chemical.hazard_Type, row, 5);
+			equipmentStock.setValueAt(chemical.reactant_Name, row,0);
+			equipmentStock.setValueAt(chemical.reference_Code, row,1);
+			equipmentStock.setValueAt(chemical.quantity, row, 2);
+			equipmentStock.setValueAt(chemical.location, row,3);
+			equipmentStock.setValueAt(chemical.hazard_Type, row, 4);
 			   
 			   row++; // add one to row
 			   
@@ -494,12 +489,11 @@ public void availableStock() {
 			   
 			equipmentStock.addRow();//add a new row to the table
 			   //put the fields of chemical into the table
-			equipmentStock.setValueAt(equipment.item_Name, row, 1);
-			equipmentStock.setValueAt(equipment.product_Code, row, 2);
-			equipmentStock.setValueAt(equipment.quantity, row, 3);
-			equipmentStock.setValueAt(equipment.cupboard_Number, row,4);
-			equipmentStock.setValueAt(equipment.room, row, 5);
-			equipmentStock.setValueAt(equipment.hazard_Warning,row,6);
+			equipmentStock.setValueAt(equipment.item_Name, row, 0);
+			equipmentStock.setValueAt(equipment.product_Code, row, 1);
+			equipmentStock.setValueAt(equipment.quantity, row, 2);
+			equipmentStock.setValueAt(equipment.cupboard_Number, row,3);
+			equipmentStock.setValueAt(equipment.hazard_Type,row,4);
 			   
 			   row++; // add one to row
 			   }
