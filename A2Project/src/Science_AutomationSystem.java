@@ -94,8 +94,9 @@ public void addItem() {
 
 public void editItem() {
 	
-	PC_Table editTable = new PC_Table("Search Table", 0, "Item Quantity, Item Name, ID, Item Hazard, Item Location/Cupboard Number ","OK");
+	PC_Table editTable = new PC_Table("Search Table", 0, " Item Name, ID ,Item Quantity# ,Hazard Warning#, Item Hazard, Item Location/Cupboard Number, Room","OK");
 		editTable.setSize(1500, 1000);
+		
 		
 	
 	Chemical chemical = new Chemical (science_AutomationStyle);
@@ -104,7 +105,7 @@ public void editItem() {
 	
 	Object[] determineTable = {chemicalOption, equipmentOption}; // objects for choice between chemical and equipment tables
 	   
-	int choice = JOptionPane.showOptionDialog(null, "Which database do you want to edit?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
+	int choice = JOptionPane.showOptionDialog(null, "Which database would you like to edit?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
 	
 	
 	
@@ -116,11 +117,11 @@ public void editItem() {
 	}
 	if ( choice == 0 ) {
 		
-		String userInput = JOptionPane.showInputDialog(null, "Input an ID number or a Reactant Name:", "Search By ID Number or Reactant Name", 1);
+		String userInput = JOptionPane.showInputDialog(null, "Input an ID number or a Reactant Name to narrow down your search:", "Search By ID Number or Reactant Name", 1);
 		System.out.println(userInput);
 		
 		if (userInput == null) {
-			JOptionPane.showMessageDialog(null, "Pleaase select a search criteria", "Error Message", 1, null);
+			JOptionPane.showMessageDialog(null, "Please select a search criteria", "Error Message", 1, null);
 			
 			
 		}else
@@ -134,11 +135,11 @@ public void editItem() {
 		   if ((chemical.reference_Code.contains(userInput))|(chemical.reactant_Name.contains(userInput))) { //if the Inputed values match
 		   editTable.addRow();//add a new row to the table
 		   //put the fields of chemical into the table
-		   editTable.setValueAt(chemical.reactant_Name, row, 1);
-		   editTable.setValueAt(chemical.reference_Code, row, 2);
-		   editTable.setValueAt(chemical.location, row,4);
-		   editTable.setValueAt(chemical.quantity, row, 3);
-		   editTable.setValueAt(chemical.hazard_Type, row, 5);
+		   editTable.setValueAt(chemical.reactant_Name, row, 0);
+		   editTable.setValueAt(chemical.reference_Code, row, 1);
+		   editTable.setValueAt(chemical.quantity, row, 2);
+		   editTable.setValueAt(chemical.hazard_Type, row, 4);
+		   editTable.setValueAt(chemical.location, row,5);
 		   
 		   row++; // add one to row
 		   }
@@ -150,7 +151,7 @@ public void editItem() {
 		}
 	
 	if ( choice == 1 ) {
-		String userInput = JOptionPane.showInputDialog(null, "Input an ID number or a Equipment Name:", "Search Equipment ID or Equipment Location", 1);
+		String userInput = JOptionPane.showInputDialog(null, "Input an ID number or a Equipment Name to narrow down your search:", "Search Equipment ID or Equipment Location", 1);
 		System.out.println(userInput);
 		
 		if (userInput == null) {
@@ -165,12 +166,11 @@ public void editItem() {
 		   if ((equipment.cupboard_Number.contains(userInput) | equipment.room.contains(userInput))) { //if the surname matches
 		   editTable.addRow();//add a new row to the table
 		   //put the fields of chemical into the table
-		   editTable.setValueAt(equipment.item_Name, row, 1);
-		   editTable.setValueAt(equipment.product_Code, row, 2);
-		   editTable.setValueAt(equipment.cupboard_Number, row,4);
-		   editTable.setValueAt(equipment.quantity, row, 3);
-		   editTable.setValueAt(equipment.room, row, 5);
-		   editTable.setValueAt(equipment.hazard_Warning,row,6);
+		   editTable.setValueAt(equipment.item_Name, row, 0);
+		   editTable.setValueAt(equipment.product_Code, row, 1);
+		   editTable.setValueAt(equipment.quantity, row, 2);
+		   editTable.setValueAt(equipment.cupboard_Number, row,5);
+		   editTable.setValueAt(equipment.room, row, 6);
 		   
 		   
 		   }
@@ -193,6 +193,7 @@ public void requestItem() { // ignore dates and just take the item request quant
 	   
 	   PC_Table itemRequestTable = new PC_Table ("Item Request Table", 0 , "Item Name, ID ,Item Quantity# , Item Location/Cupboard Number, Hazard Warning#, Item Hazard, Room", "OK");
 	   itemRequestTable.fullScreen();
+	   itemRequestTable.addFieldActionItemListener(1, itemRequestTable);
 	   
 	   //user then needs to decide how much they are taking out of the given item: 
 	   
@@ -200,16 +201,11 @@ public void requestItem() { // ignore dates and just take the item request quant
 	   RequestItem.choice();
 	   
 	   itemRequiredQuantity = RequestItem.getFieldInt(1);
-	  
-	   periodUse = RequestItem.getFieldInt(3);
-	   
-	   System.out.println(java.time.LocalDate.now()); 
-	   System.out.println(periodUse);
+	   periodUse = RequestItem.getFieldInt(2);
+
 	   System.out.println(itemRequiredQuantity);
-	  
-	   
-	   
-	   
+	   System.out.println(periodUse);
+	  	   
 	  
 	//  itemQuantity = itemQuantity - itemRequiredQuantity; // the operation used to take away the requested item from the actual item quantity
 	  
