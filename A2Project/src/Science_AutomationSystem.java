@@ -316,19 +316,7 @@ public void requestItem() { // ignore dates and just take the item request quant
 		   }
 		  
 		   requestTable.choice();
-		   /*
-		   requestTable.setSize(1920,1080);
-		   String equipmentIDNumber = requestTable.getValueAt(requestTable.getSelectedRow() , 1);
-		   equipment = (Equipment) equipmentFile.retrieve(equipmentIDNumber);
-		   if (equipment != null){
-			   equipment.edit();
-			   equipmentFile.store(equipment);
-		   }else
-			   JOptionPane.showMessageDialog(null, "Error - Unable to find Item");
-		   if (row > 0){
-			   
-		   }else JOptionPane.showMessageDialog(null, "Error - No matching item");
-		   */
+		   
 		   
 	}
 	  
@@ -340,7 +328,7 @@ public void requestItem() { // ignore dates and just take the item request quant
 	//  itemQuantity = itemQuantity - itemRequiredQuantity; // the operation used to take away the requested item from the actual item quantity
 	  
 	  
- }//  end of method
+ }
 
 // end of method 
    
@@ -514,22 +502,12 @@ public void searchItem() {
 
 public void itemHazardReport() {
 
-	   /*
-	   String printreport = new String("printreport");
-	  
-	  
-	   paper printHazard = new printHazard();
-	  
-	   
-	   paper.setOrientation(printhazard.PORTRAIT_ORIENTATION);
-	   display();
-	   PC_Paper();
-	   */
-	   
-	   
-	   
-	   
-	   
+	PC_Paper hazardReport = new PC_Paper();
+	
+	hazardReport.setSize(600, 840);
+	
+	
+	hazardReport.display();
 	   
    }//  end of method
 
@@ -538,7 +516,7 @@ public void itemHazardReport() {
 public void phLevel() {
 	Chemical chemical = new Chemical(science_AutomationStyle);
 	
-	PC_Table pHLevel = new PC_Table("Search Table", 0, "pH Level#, Hazard Type, Item Name, Item ID, Item Quantity#, Item Location/Cupboard Number ","OK");
+	PC_Table pHLevel = new PC_Table("pH Level", 0, "pH Level#, Hazard Type, Item Name, Item ID, Item Quantity#, Item Location/Cupboard Number ","OK");
 	pHLevel.sortNumeric(0, true);
 	
 	int row = 0;

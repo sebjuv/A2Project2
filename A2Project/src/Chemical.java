@@ -30,7 +30,7 @@ import java.io.*;
    public String         location = "";     /** a location for where the given item is stored*/
    public boolean        hazard_Warning = false;     /** is the item hazardous?*/
    public String         hazard_Type = "None";     /** a place to store the hazard type*/
-   public float          pH_level = (float) 5.5;     /** a measure for the pH level for each chemical*/
+   public float          pH_level = (float) 0.0;     /** a measure for the pH level for each chemical*/
    private boolean        dummy_case           = false;
    private boolean        deleted_case         = false;
 
