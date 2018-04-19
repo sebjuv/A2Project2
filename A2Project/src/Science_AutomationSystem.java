@@ -619,10 +619,10 @@ void setStyle(PC_Style style){
         style.setBackgroundColour(null);
         style.setMenuBackgroundColour(null);
         style.setMenuBackgroundPicture("");
-        style.setMenuCenter(false);
         style.setMenuFooterBackgroundColour(null);
         style.setMenuFooterFont(null);
         style.setMenuFooterForegroundColour(null);
+        style.setMenuCenter(true);
         style.setMenuFullSize(false);
         style.setMenuInsets(0, 0, 0, 0);
         style.setMenuItemBackgroundColour(null);
