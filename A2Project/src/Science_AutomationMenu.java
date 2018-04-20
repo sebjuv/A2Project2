@@ -26,7 +26,7 @@ public class Science_AutomationMenu {
    PC_Menu mainMenuMenu = new PC_Menu("Main Menu", "Item, Admin, Quit");
    PC_Menu itemMenu = new PC_Menu("Item", "Add Item, Edit Item, Request Item, Search Item, Main Menu");
    PC_Menu adminMenu = new PC_Menu("Admin", "Item Hazard Report, pH Level, Available Stock, Main Menu");
-   PC_Menu addItemMenu = new PC_Menu ("Add Item","Chemical, Equipment");
+   PC_Menu addItemMenu = new PC_Menu ("Add Item","Chemical, Equipment,Item Menu");
    
    //  CLASS METHODS
    Science_AutomationMenu() {  //  constructor
@@ -98,10 +98,6 @@ public class Science_AutomationMenu {
 		   break;
 		   
 		   case 3 : addItemMenu.setVisible(false);
-		   science_AutomationSystem.quit();
-		   break;		   
-		   
-		   case 4 : addItemMenu.setVisible(false);
 		   finished = true;
 		   break;
 		   

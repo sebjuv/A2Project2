@@ -46,7 +46,7 @@ import java.io.*;
       if (reference_Code.length() >= minReference_Code && reference_Code.length() <= maxReference_Code)
          return "";
       else
-         return "Reference_Code"+ " is out of range";
+         return "Reference Code"+ " is out of range";
    }
 
 
@@ -57,7 +57,7 @@ import java.io.*;
 
    public boolean input()  { 
        boolean finished = false;
-      PC_Dialog dialog = new PC_Dialog("Entering Chemical Information", "Reference_ Code, Reactant_ Name, Quantity, Location, Hazard_ Warning*, Hazard_ Type, P H_level", "OK, Cancel");
+      PC_Dialog dialog = new PC_Dialog("Entering Chemical Information", "Reference Code, Reactant Name, Quantity, Location, Hazard Warning*, Hazard Type, pH level", "OK, Cancel");
 
       dialog.setStyle(classStyle);
 
@@ -94,7 +94,7 @@ import java.io.*;
 /** This method displays and object in a PC_Dialog*/
 
    public int output()  { 
-      PC_Dialog dialog = new PC_Dialog("Displaying Chemical Information", "Reference_ Code, Reactant_ Name, Quantity, Location, Hazard_ Warning*, Hazard_ Type, P H_level", "OK");
+      PC_Dialog dialog = new PC_Dialog("Displaying Chemical Information", "Reference Code, Reactant Name, Quantity, Location, Hazard Warning*, Hazard Type, pH level", "OK");
 
       dialog.setStyle(classStyle);
 
@@ -122,7 +122,7 @@ import java.io.*;
 
    public int edit()  { 
         int button = 0;
-      PC_Dialog dialog = new PC_Dialog("Editing Chemical Information", "Reference_ Code, Reactant_ Name, Quantity, Location, Hazard_ Warning*, Hazard_ Type, P H_level", "OK, Cancel");
+      PC_Dialog dialog = new PC_Dialog("Editing Chemical Information", "Reference Code, Reactant Name, Quantity, Location, Hazard Warning*, Hazard Type, pH level", "OK, Cancel");
 
       dialog.setStyle(classStyle);
 

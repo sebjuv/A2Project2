@@ -549,7 +549,8 @@ public void availableStock() {
 	Chemical chemical = new Chemical (science_AutomationStyle);
 	Equipment equipment = new Equipment (science_AutomationStyle);
 	
-	PC_Table equipmentStock = new PC_Table ("All Stock", 0, "Item Name, ID ,Item Quantity# , Item Location/Cupboard Number, Item Hazard","OK");
+	PC_Table equipmentStock = new PC_Table ("All Stock", 0, "Item Name, ID ,Item Quantity# , Item Location/Cupboard Number, Item Hazard","OK, Edit");
+	
 	
 	Object[] determineTable = {chemicalOption, equipmentOption}; // objects for choice between chemical and equipment tables
 	
@@ -581,7 +582,22 @@ public void availableStock() {
 			   
 			   }
 			   equipmentStock.choice();//display the table
-	   }
+			//   equipmentStock.get
+			   if (){
+			   equipmentStock.setSize(1920, 1080);
+			   String chemicalIDNumber = equipmentStock.getValueAt(equipmentStock.getSelectedRow() , 1);
+			   chemical = (Chemical) chemicalFile.retrieve(chemicalIDNumber);
+			   if (chemical != null){
+				   chemical.edit();
+				   chemicalFile.store(chemical);
+			   }else
+				   JOptionPane.showMessageDialog(null, "Error - Unable to find Item");
+			   if (row > 0){
+				   
+			   }else JOptionPane.showMessageDialog(null, "Error - No matching item");
+			   
+	   }}
+	   
 	   if (tableChoice == 1){
 		   System.out.println(tableChoice);
 		  
