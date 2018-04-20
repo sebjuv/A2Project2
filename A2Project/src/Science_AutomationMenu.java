@@ -1,5 +1,19 @@
 // class Science_AutomationMenu - Shell created by MenuMaker on Wed Jan 17 13:35:30 GMT 2018 by 16Szuddas
+/*
+ * 
+Add quantity check to ensure that negative numbers are not inputed for quantity in the add equipment and add chemical dialog boxes.
 
+The splash screen is to be improved by including a photograph. 
+
+When searching an item in the under the Item Search button, the user is prompted for the details of the item, such as a name, an ID number, or its location. If the user closes the box used to input these details, the software crashes, and a new instance has to be run. This will be fixed by adding a button which directs the user to the Item menu, where the user can go to the main menu.               
+
+The pH button currently does not sort the chemicals by their pH level. The system would be improved if the chemicals were in order of pH, rather than mixed.
+
+Item Hazard report will have all of the items which contain a hazard. The user will be able to print all of the details of all of the items which are hazardous.
+
+Admin be able to edit all the files they can view.
+
+ */
 
 import java.awt.*;
 import park.*;
@@ -25,7 +39,7 @@ public class Science_AutomationMenu {
    }
 
    private void mainmenuRun(){   
-	   Splash startSplash = new Splash (2,null);
+	   Splash startSplash = new Splash (2,"images/splash.jpg");
 	   
       boolean finished = false;
       do {
