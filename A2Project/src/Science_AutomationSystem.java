@@ -517,7 +517,7 @@ public void phLevel() {
 	Chemical chemical = new Chemical(science_AutomationStyle);
 	
 	PC_Table pHLevel = new PC_Table("pH Level", 0, "pH Level#, Hazard Type, Item Name, Item ID, Item Quantity#, Item Location/Cupboard Number ","OK");
-	pHLevel.sortNumeric(0, true);
+	
 	
 	int row = 0;
 	   chemicalFile.resetSerialAccess();// prepare the file for serial access
@@ -537,6 +537,7 @@ public void phLevel() {
 	   row++; // add one to row
 	   }
 	   }
+	   pHLevel.sortNumeric(0, true);
 	   pHLevel.choice();//display the table
 	
 	
@@ -551,41 +552,44 @@ public void availableStock() {
 	
 	PC_Table equipmentStock = new PC_Table ("All Stock", 0, "Item Name, ID ,Item Quantity# , Item Location/Cupboard Number, Item Hazard","OK, Edit");
 	
+	PC_Table chemicalStock = new PC_Table ("All Stock", 0, "Item Name, ID, Item Quantity#, Item Location/Cupboard Number, Item Hazard", "OK,Edit");
+	
 	
 	Object[] determineTable = {chemicalOption, equipmentOption}; // objects for choice between chemical and equipment tables
 	
 	int tableChoice = JOptionPane.showOptionDialog(null,"Which database would you like to view?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]);
 	
-	   if ( tableChoice == -1  ) {
+	   
+	
+if ( tableChoice == -1  ) {
 				JOptionPane.showMessageDialog(null, "Error - please select search criteria", "Error Message", 1, null);
 				
 			}
-	   if (tableChoice == 0){
-		   System.out.println(tableChoice);
-		   
-
+if (tableChoice == 0){
 			
 			int row = 0;
 			   chemicalFile.resetSerialAccess();// prepare the file for serial access
 			   while (chemicalFile.moreSerialRecords()) {//loop for each chemical in the file
 			   chemical = (Chemical) chemicalFile.getNextSerialValue(); // read chemical
 			   
-			equipmentStock.addRow();//add a new row to the table
-			   //put the fields of chemical into the table
-			equipmentStock.setValueAt(chemical.reactant_Name, row,0);
-			equipmentStock.setValueAt(chemical.reference_Code, row,1);
-			equipmentStock.setValueAt(chemical.quantity, row, 2);
-			equipmentStock.setValueAt(chemical.location, row,3);
-			equipmentStock.setValueAt(chemical.hazard_Type, row, 4);
+			chemicalStock.addRow();//add a new row to the table //put the fields of chemical into the table
+			chemicalStock.setValueAt(chemical.reactant_Name, row,0);
+			chemicalStock.setValueAt(chemical.reference_Code, row,1);
+			chemicalStock.setValueAt(chemical.quantity, row, 2);
+			chemicalStock.setValueAt(chemical.location, row,3);
+			chemicalStock.setValueAt(chemical.hazard_Type, row, 4);
 			   
 			   row++; // add one to row
 			   
 			   }
-			   equipmentStock.choice();//display the table
-			//   equipmentStock.get
-			   if (){
-			   equipmentStock.setSize(1920, 1080);
-			   String chemicalIDNumber = equipmentStock.getValueAt(equipmentStock.getSelectedRow() , 1);
+			   chemicalStock.choice();
+			   int editButton = chemicalStock.choice();//display the table
+			   
+			   if(editButton == 2){
+			   
+			   
+			   chemicalStock.setSize(1920, 1080);
+			   String chemicalIDNumber = chemicalStock.getValueAt(chemicalStock.getSelectedRow() , 1);
 			   chemical = (Chemical) chemicalFile.retrieve(chemicalIDNumber);
 			   if (chemical != null){
 				   chemical.edit();
@@ -596,35 +600,57 @@ public void availableStock() {
 				   
 			   }else JOptionPane.showMessageDialog(null, "Error - No matching item");
 			   
-	   }}
+			   }
+	    else
+	   {
 	   
+	   }}
 	   if (tableChoice == 1){
 		   System.out.println(tableChoice);
 		  
 			
-			int row = 0;
-			   equipmentFile.resetSerialAccess();// prepare the file for serial access
-			   while (equipmentFile.moreSerialRecords()) {//loop for each quotation in the file
-				   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read chemical
-			   
-			equipmentStock.addRow();//add a new row to the table
-			   //put the fields of chemical into the table
-			equipmentStock.setValueAt(equipment.item_Name, row, 0);
-			equipmentStock.setValueAt(equipment.product_Code, row, 1);
-			equipmentStock.setValueAt(equipment.quantity, row, 2);
-			equipmentStock.setValueAt(equipment.cupboard_Number, row,3);
-			equipmentStock.setValueAt(equipment.hazard_Type,row,4);
-			   
-			   row++; // add one to row
-			   }
-			   
-			   equipmentStock.choice();//display the table
+		   int row = 0;
+		   equipmentFile.resetSerialAccess();// prepare the file for serial access
+		   while (equipmentFile.moreSerialRecords()) {//loop for each chemical in the file
+		   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read chemical
 		   
-	   }
-	  
-	   
-	   
+		   equipmentStock.addRow();//add a new row to the table
+		   //put the fields of chemical into the table
+		   equipmentStock.setValueAt(equipment.item_Name, row,0);
+		   equipmentStock.setValueAt(equipment.product_Code, row,1);
+		   equipmentStock.setValueAt(equipment.quantity, row, 2);
+		   equipmentStock.setValueAt(equipment.cupboard_Number, row,3);
+		   equipmentStock.setValueAt(equipment.hazard_Type, row, 4);
+		   
+		   row++; // add one to row			   }
+		   }
+		   equipmentStock.choice();
+		   int editButton = equipmentStock.choice();//display the table
+		   
+		   if(editButton == 2){
+		   
+		   equipmentStock.setSize(1920, 1080);
+		   String equipmentIDNumber = equipmentStock.getValueAt(equipmentStock.getSelectedRow() , 1);
+		   equipment = (Equipment) equipmentFile.retrieve(equipmentIDNumber);
+		   if (equipment != null){
+			   equipment.edit();
+			   equipmentFile.store(chemical);
+		   }else
+			   JOptionPane.showMessageDialog(null, "Error - Unable to find Item");
+		   if (row > 0){
+			   
+		   }else JOptionPane.showMessageDialog(null, "Error - No matching item");
+		   
+		   }
+    else
+   {
+   
    }
+}}
+	   
+	   
+	   
+ 
    
 //  end of method
 
