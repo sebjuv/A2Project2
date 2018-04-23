@@ -582,11 +582,10 @@ if (tableChoice == 0){
 			   row++; // add one to row
 			   
 			   }
-			   chemicalStock.choice();
+			  
 			   int editButton = chemicalStock.choice();//display the table
 			   
 			   if(editButton == 2){
-			   
 			   
 			   chemicalStock.setSize(1920, 1080);
 			   String chemicalIDNumber = chemicalStock.getValueAt(chemicalStock.getSelectedRow() , 1);
@@ -601,10 +600,21 @@ if (tableChoice == 0){
 			   }else JOptionPane.showMessageDialog(null, "Error - No matching item");
 			   
 			   }
-	    else
-	   {
-	   
-	   }}
+	    else 
+	   {/*
+		   String chemicalIDNumber = editTable.getValueAt(editTable.getSelectedRow() , 1);
+		   chemical = (Chemical) chemicalFile.retrieve(chemicalIDNumber);
+		   if (chemical != null){
+			   chemical.edit();
+			   chemicalFile.store(chemical);
+		   }else
+			   JOptionPane.showMessageDialog(null, "Error - Unable to find Item");
+		   if (row > 0){
+			   
+		   }else JOptionPane.showMessageDialog(null, "Error - No matching item");
+		   }
+		}
+	   */}}
 	   if (tableChoice == 1){
 		   System.out.println(tableChoice);
 		  
@@ -624,7 +634,7 @@ if (tableChoice == 0){
 		   
 		   row++; // add one to row			   }
 		   }
-		   equipmentStock.choice();
+		   
 		   int editButton = equipmentStock.choice();//display the table
 		   
 		   if(editButton == 2){
@@ -634,7 +644,7 @@ if (tableChoice == 0){
 		   equipment = (Equipment) equipmentFile.retrieve(equipmentIDNumber);
 		   if (equipment != null){
 			   equipment.edit();
-			   equipmentFile.store(chemical);
+			   equipmentFile.store(equipment);
 		   }else
 			   JOptionPane.showMessageDialog(null, "Error - Unable to find Item");
 		   if (row > 0){
