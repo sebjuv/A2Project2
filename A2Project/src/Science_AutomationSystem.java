@@ -203,7 +203,7 @@ public void editItem() {
 	   
 //  end of method
 
-public void requestItem() { // ignore dates and just take the item request quantity from the initial quantity.
+public void requestItem() { 
 	
 	PC_Table requestTable = new PC_Table("Search Table", 0, " Item Name, ID ,Item Quantity# ,Hazard Warning#, Item Hazard, Item Location/Cupboard Number, Room","OK");
 	requestTable.setSize(1500, 1000);
@@ -501,15 +501,60 @@ public void searchItem() {
 
 
 public void itemHazardReport() {
-
-	PC_Paper hazardReport = new PC_Paper();
-	
-	hazardReport.setSize(600, 840);
-	
-	
-	hazardReport.display();
 	   
-   }//  end of method
+	Chemical chemical = new Chemical (science_AutomationStyle);
+		
+	PC_Table chemicalStock = new PC_Table ("All Chemicals", 0, "Item Name, ID, Item Quantity#, Item Location/Cupboard Number, Item Hazard", "OK, Print");
+	
+	PC_Paper hazardReport = new PC_Paper();
+	hazardReport.setOrientation(PC_Paper.PORTRAIT_ORIENTATION);
+	hazardReport.setOrientation(PC_Paper.ALIGN_CENTER);
+	hazardReport.setSize(900, 900);
+	
+			
+			int row = 0;
+			   chemicalFile.resetSerialAccess();// prepare the file for serial access
+			   while (chemicalFile.moreSerialRecords()) {//loop for each chemical in the file
+			   chemical = (Chemical) chemicalFile.getNextSerialValue(); // read chemical
+			   
+			chemicalStock.addRow();//add a new row to the table //put the fields of chemical into the table
+			chemicalStock.setValueAt(chemical.reactant_Name, row,0);
+			chemicalStock.setValueAt(chemical.reference_Code, row,1);
+			chemicalStock.setValueAt(chemical.quantity, row, 2);
+			chemicalStock.setValueAt(chemical.location, row,3);
+			chemicalStock.setValueAt(chemical.hazard_Type, row, 4);
+			   
+			   row++; // add one to row
+			   
+			   }
+			  
+			   int editButton = chemicalStock.choice();//display the table
+			   
+			   
+			   if(editButton == 2){
+				   String chemicalIDNumber = chemicalStock.getValueAt(chemicalStock.getSelectedRow() , 1);
+				   chemical = (Chemical) chemicalFile.retrieve(chemicalIDNumber);
+				   if (chemical != null){
+					   
+				   
+			   
+				   hazardReport.drawString("Chemical Name: "+chemical.reactant_Name,30, 30);
+				   hazardReport.drawString("Reference Code: "+chemical.reference_Code, 30, 50);
+				   hazardReport.drawString("Quantity: "+chemical.quantity, 30, 70);
+				   hazardReport.drawString("Location: "+chemical.location, 30, 90);
+				   hazardReport.drawString("Hazard Type: "+chemical.hazard_Type, 30, 110);
+				   hazardReport.drawString("pH level: "+chemical.pH_level, 30, 130);
+				   hazardReport.display();
+					
+			   }
+			 }
+		}
+
+				
+				
+		
+
+
 
 // end of method 
    
@@ -562,7 +607,7 @@ public void availableStock() {
 	   
 	
 if ( tableChoice == -1  ) {
-				JOptionPane.showMessageDialog(null, "Error - please select search criteria", "Error Message", 1, null);
+				JOptionPane.showMessageDialog(null, "Error - please select a database to view", "Error Message", 1, null);
 				
 			}
 if (tableChoice == 0){
@@ -600,22 +645,12 @@ if (tableChoice == 0){
 			   }else JOptionPane.showMessageDialog(null, "Error - No matching item");
 			   
 			   }
-	    else 
-	   {/*
-		   String chemicalIDNumber = editTable.getValueAt(editTable.getSelectedRow() , 1);
-		   chemical = (Chemical) chemicalFile.retrieve(chemicalIDNumber);
-		   if (chemical != null){
-			   chemical.edit();
-			   chemicalFile.store(chemical);
-		   }else
-			   JOptionPane.showMessageDialog(null, "Error - Unable to find Item");
-		   if (row > 0){
-			   
-		   }else JOptionPane.showMessageDialog(null, "Error - No matching item");
-		   }
-		}
-	   */}}
-	   if (tableChoice == 1){
+	    else {
+	    	
+	    }}
+	   
+
+if (tableChoice == 1){
 		   System.out.println(tableChoice);
 		  
 			
@@ -657,11 +692,7 @@ if (tableChoice == 0){
    
    }
 }}
-	   
-	   
-	   
- 
-   
+
 //  end of method
 
 //*sets the style to be used by menus windows etc*/	
