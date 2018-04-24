@@ -4,7 +4,7 @@ import park.*;
 import java.io.*;
 
 
-// class Equipment Created by 11.00 on Fri Mar 16 12:16:26 GMT 2018
+// class Equipment Created by 11.00 on Tue Apr 24 12:27:15 BST 2018
 
  public class Equipment  implements Record  {
    public static PC_Style classStyle = new PC_Style();
@@ -20,6 +20,8 @@ import java.io.*;
 //  *********************** Class constants ***********************
    private final int minProduct_Code = 0;  // Minimum value for product_Code
    private final int maxProduct_Code = 20;  // Maximum value for product_Code
+   private final int minQuantity = 0;  // Minimum value for quantity
+   private final int maxQuantity = 10000;  // Maximum value for quantity
 
 //  ************************* Class fields *************************
    private static String DATA_FILE_NAME = "datafiles/Equipment.dat";// Filename for the data file for this class 
@@ -51,6 +53,16 @@ import java.io.*;
 
 
 
+/** This method validates data entry to quantity*/
+   private String validQuantity() {
+      if (quantity >= minQuantity && quantity <= maxQuantity)
+         return "";
+      else
+         return "Quantity"+ " is out of range";
+   }
+
+
+
 //  *********************** Input Method ***********************
 
 /** This method reads data in from a keyboard using a PC_Dialog*/
@@ -78,7 +90,7 @@ import java.io.*;
          hazard_Warning      = dialog.getFieldBoolean(5);
          hazard_Type         = dialog.getField(6);
          room                = dialog.getField(7);
-         error = validProduct_Code();
+         error = validProduct_Code()+ validQuantity();
       if(error.length()!=0&& !finished)
          JOptionPane.showMessageDialog(null,error,"Data input error",JOptionPane.ERROR_MESSAGE);
         } while (!finished && error.length()!=0);
@@ -146,7 +158,7 @@ import java.io.*;
             hazard_Type         = dialog.getField(6);
             room                = dialog.getField(7);
          }
-         error = validProduct_Code();
+         error = validProduct_Code()+ validQuantity();
       if(error.length()!=0 && button!=2)
          JOptionPane.showMessageDialog(null,error,"Data input error",JOptionPane.ERROR_MESSAGE);
         } while (button!=2 && error.length()!=0);
@@ -374,7 +386,7 @@ It is used by the CaseTool, Version 10 and greater, to read the entity propertie
          <fieldLength>  </fieldLength>
          <fieldIsKey> false </fieldIsKey>
          <fieldIsAutonumbered> false </fieldIsAutonumbered>
-         <fieldValidated> false </fieldValidated>
+         <fieldValidated> true </fieldValidated>
          <fieldDP>  </fieldDP>
          <fieldMin> 0 </fieldMin>
          <fieldMax> 10000 </fieldMax>

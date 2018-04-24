@@ -4,7 +4,7 @@ import park.*;
 import java.io.*;
 
 
-// class Chemical Created by 11.00 on Fri Mar 16 11:59:25 GMT 2018
+// class Chemical Created by 11.00 on Tue Apr 24 12:25:44 BST 2018
 
  public class Chemical  implements Record  {
    public static PC_Style classStyle = new PC_Style();
@@ -20,6 +20,8 @@ import java.io.*;
 //  *********************** Class constants ***********************
    private final int minReference_Code = 0;  // Minimum value for reference_Code
    private final int maxReference_Code = 20;  // Maximum value for reference_Code
+   private final int minQuantity = 0;  // Minimum value for quantity
+   private final int maxQuantity = 10000;  // Maximum value for quantity
 
 //  ************************* Class fields *************************
    private static String DATA_FILE_NAME = "datafiles/Chemical.dat";// Filename for the data file for this class 
@@ -30,7 +32,7 @@ import java.io.*;
    public String         location = "";     /** a location for where the given item is stored*/
    public boolean        hazard_Warning = false;     /** is the item hazardous?*/
    public String         hazard_Type = "None";     /** a place to store the hazard type*/
-   public float          pH_level = (float) 0.0;     /** a measure for the pH level for each chemical*/
+   public float          pH_level = (float) 5.5;     /** a measure for the pH level for each chemical*/
    private boolean        dummy_case           = false;
    private boolean        deleted_case         = false;
 
@@ -46,7 +48,17 @@ import java.io.*;
       if (reference_Code.length() >= minReference_Code && reference_Code.length() <= maxReference_Code)
          return "";
       else
-         return "Reference Code"+ " is out of range";
+         return "Reference_Code"+ " is out of range";
+   }
+
+
+
+/** This method validates data entry to quantity*/
+   private String validQuantity() {
+      if (quantity >= minQuantity && quantity <= maxQuantity)
+         return "";
+      else
+         return "Quantity"+ " is out of range";
    }
 
 
@@ -57,7 +69,7 @@ import java.io.*;
 
    public boolean input()  { 
        boolean finished = false;
-      PC_Dialog dialog = new PC_Dialog("Entering Chemical Information", "Reference Code, Reactant Name, Quantity, Location, Hazard Warning*, Hazard Type, pH level", "OK, Cancel");
+      PC_Dialog dialog = new PC_Dialog("Entering Chemical Information", "Reference_ Code, Reactant_ Name, Quantity, Location, Hazard_ Warning*, Hazard_ Type, P H_level", "OK, Cancel");
 
       dialog.setStyle(classStyle);
 
@@ -78,7 +90,7 @@ import java.io.*;
          hazard_Warning      = dialog.getFieldBoolean(5);
          hazard_Type         = dialog.getField(6);
          pH_level            = (float) dialog.getFieldDouble(7);
-         error = validReference_Code();
+         error = validReference_Code()+ validQuantity();
       if(error.length()!=0&& !finished)
          JOptionPane.showMessageDialog(null,error,"Data input error",JOptionPane.ERROR_MESSAGE);
         } while (!finished && error.length()!=0);
@@ -94,7 +106,7 @@ import java.io.*;
 /** This method displays and object in a PC_Dialog*/
 
    public int output()  { 
-      PC_Dialog dialog = new PC_Dialog("Displaying Chemical Information", "Reference Code, Reactant Name, Quantity, Location, Hazard Warning*, Hazard Type, pH level", "OK");
+      PC_Dialog dialog = new PC_Dialog("Displaying Chemical Information", "Reference_ Code, Reactant_ Name, Quantity, Location, Hazard_ Warning*, Hazard_ Type, P H_level", "OK");
 
       dialog.setStyle(classStyle);
 
@@ -122,7 +134,7 @@ import java.io.*;
 
    public int edit()  { 
         int button = 0;
-      PC_Dialog dialog = new PC_Dialog("Editing Chemical Information", "Reference Code, Reactant Name, Quantity, Location, Hazard Warning*, Hazard Type, pH level", "OK, Cancel");
+      PC_Dialog dialog = new PC_Dialog("Editing Chemical Information", "Reference_ Code, Reactant_ Name, Quantity, Location, Hazard_ Warning*, Hazard_ Type, P H_level", "OK, Cancel");
 
       dialog.setStyle(classStyle);
 
@@ -146,7 +158,7 @@ import java.io.*;
             hazard_Type         = dialog.getField(6);
             pH_level            = (float) dialog.getFieldDouble(7);
          }
-         error = validReference_Code();
+         error = validReference_Code()+ validQuantity();
       if(error.length()!=0 && button!=2)
          JOptionPane.showMessageDialog(null,error,"Data input error",JOptionPane.ERROR_MESSAGE);
         } while (button!=2 && error.length()!=0);
@@ -374,7 +386,7 @@ It is used by the CaseTool, Version 10 and greater, to read the entity propertie
          <fieldLength>  </fieldLength>
          <fieldIsKey> false </fieldIsKey>
          <fieldIsAutonumbered> false </fieldIsAutonumbered>
-         <fieldValidated> false </fieldValidated>
+         <fieldValidated> true </fieldValidated>
          <fieldDP>  </fieldDP>
          <fieldMin> 0 </fieldMin>
          <fieldMax> 10000 </fieldMax>

@@ -49,8 +49,6 @@ HashFile equipmentFile = new HashFile(EquipmentFile, 100, new Equipment());
       
    }
 
-
-
 public void quit() {
 	
       System.exit(0);
@@ -499,7 +497,6 @@ public void searchItem() {
 
 // end of method
 
-
 public void itemHazardReport() {
 	   
 	Chemical chemical = new Chemical (science_AutomationStyle);
@@ -549,12 +546,6 @@ public void itemHazardReport() {
 			   }
 			 }
 		}
-
-				
-				
-		
-
-
 
 // end of method 
    
@@ -756,9 +747,6 @@ void setStyle(PC_Style style){
         style.setWindowTitlePicture("");
         
     }
-
-
-
 
 }//  End of class
 
