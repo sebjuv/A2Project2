@@ -267,40 +267,24 @@ public void requestItem() {
 			   JOptionPane.showMessageDialog(null, "Error - Unable to find Item");
 		   if (row > 0){
 			   
-		   }else JOptionPane.showMessageDialog(null, "Error - No matching item");
-		   
-		   /*
-		   requestTable.setSize(1920, 1080);
-		   String chemicalIDNumber = requestTable.getValueAt(requestTable.getSelectedRow() , 1);
-		   chemical = (Chemical) chemicalFile.retrieve(chemicalIDNumber);
-		   if (chemical != null){
-			   chemical.edit();
-			   chemicalFile.store(chemical);
-		   }else
-			   JOptionPane.showMessageDialog(null, "Error - Unable to find Item");
-		   if (row > 0){
-			   
-		   }else JOptionPane.showMessageDialog(null, "Error - No matching item");
-		   */		   
-		   
-		}
-		}
+		   }else JOptionPane.showMessageDialog(null, "Error - No matching item");	   
+		   }
+}
 		
 	
 	if ( choice == 1 ) {
 		String userInput = JOptionPane.showInputDialog(null, "Input an ID number or a Equipment Name to narrow down your search:", "Search Equipment ID or Equipment Location", 1);
-		System.out.println(userInput);
 		
 		if (userInput == null) {
 			JOptionPane.showMessageDialog(null, "Please select a search criteria", "Error Message", 1, null);
 			
 			
-		}else{
+		}else if (userInput != null){
 		int row = 0;
 		   equipmentFile.resetSerialAccess();// prepare the file for serial access
 		   while (equipmentFile.moreSerialRecords()) {//loop for each Equipment in the file
 		   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read chemical
-		   if ((equipment.cupboard_Number.contains(userInput) | equipment.room.contains(userInput))) { //if the surname matches
+		   if ((equipment.product_Code.contains(userInput) | equipment.item_Name.contains(userInput))) { //if the surname matches
 			   requestTable.addRow();//add a new row to the table
 		   //put the fields of chemical into the table
 			   requestTable.setValueAt(equipment.item_Name, row, 0);
