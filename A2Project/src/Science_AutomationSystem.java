@@ -283,8 +283,8 @@ public void requestItem() {
 		int row = 0;
 		   equipmentFile.resetSerialAccess();// prepare the file for serial access
 		   while (equipmentFile.moreSerialRecords()) {//loop for each Equipment in the file
-		   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read chemical
-		   if ((equipment.product_Code.contains(userInput) | equipment.item_Name.contains(userInput))) { //if the surname matches
+		   equipment = (Equipment) equipmentFile.getNextSerialValue(); // read equipment
+		   if ((equipment.product_Code.contains(userInput) | equipment.item_Name.contains(userInput))) { //if the search matches
 			   requestTable.addRow();//add a new row to the table
 		   //put the fields of chemical into the table
 			   requestTable.setValueAt(equipment.item_Name, row, 0);
@@ -336,6 +336,9 @@ public void searchItem() {
 	   
 	   int searchBy = JOptionPane.showOptionDialog(null,"What would you like to search by?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, searchOptions, searchOptions[0]);
 	   int choice = JOptionPane.showOptionDialog(null,"Which database do you want to search?", "Search Options", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, determineTable, determineTable[0]); 
+	  
+	   String chemicalSearchName;
+	   
 	   
 	   if ( choice == -1  ) {
 			JOptionPane.showMessageDialog(null, "Error - select search criteria", "Error Message", 1, null);
@@ -344,7 +347,8 @@ public void searchItem() {
 			JOptionPane.showMessageDialog(null, "Error - select search criteria", "Error Message", 1, null);
 		}
 	   if ((searchBy == 0 ) & (choice == 0 )) {
-			String chemicalSearchName = JOptionPane.showInputDialog(null, "Chemical Name", "Search By Name", 1);
+			 chemicalSearchName = JOptionPane.showInputDialog(null, "Chemical Name", "Search By Name", 1);
+			
 			
 			int row = 0;
 			   chemicalFile.resetSerialAccess();// prepare the file for serial access
@@ -360,6 +364,7 @@ public void searchItem() {
 			   searchTable.setValueAt(chemical.location, row,5);
 			   
 			   row++; // add one to row
+			   
 			   }
 			   }
 			   searchTable.choice();//display the table
